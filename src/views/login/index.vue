@@ -6,7 +6,6 @@
       <div class="title-container">
         <h3 class="title">{{ $t('login.title') }}</h3>
         <lang-select class="set-language"/>
-        <h4 class="subtitle">山东省寿光市文家街道桑家村</h4>
       </div>
 
       <el-form-item prop="username">
@@ -203,7 +202,7 @@ $light_gray:#eee;
   position: fixed;
   height: 100%;
   width: 100%;
-  background: $bg url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3829138940,2341149653&fm=26&gp=0.jpg);
+  background: $bg url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540488975392&di=7f3a049610cc1de71df9d0c537d0f031&imgtype=0&src=http%3A%2F%2Fv3wall.com%2Fwallpaper%2F2560_1600%2F1008%2F2560_1600_201008130129391321455.jpg);
   background-size:100% 100%;
   background-repeat:no-repeat;
   .login-form {
@@ -242,6 +241,7 @@ $light_gray:#eee;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+      text-shadow: 0 0 10px red;
     }
     .subtitle {
       font-size: 20px;
