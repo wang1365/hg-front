@@ -12,7 +12,7 @@
     width: 180px !important;
     height: 100%;
     position: fixed;
-    font-size: 0px;
+    font-size: 0;
     top: 0;
     bottom: 0;
     left: 0;
@@ -40,7 +40,7 @@
       margin-right: 16px;
     }
     .el-menu {
-      border: none;
+      border: 0;
       height: 100%;
       width: 100% !important;
     }
@@ -83,8 +83,12 @@
     }
   }
   .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
+  .sidebar-container .el-submenu {
+    //font-size: 15px
+  }
   .sidebar-container .el-submenu .el-menu-item {
     min-width: 180px !important;
+    font-size: 15px;
     background-color: $subMenuBg !important;
     &:hover {
       background-color: $menuHover !important;
