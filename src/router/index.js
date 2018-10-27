@@ -101,6 +101,18 @@ export default new Router({
 
 export const asyncRouterMap = [
   {
+    path: '/area',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/area/index'),
+        name: 'Area',
+        meta: { title: 'area', icon: 'area', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/config',
     component: Layout,
     meta: {
