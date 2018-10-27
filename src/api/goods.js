@@ -17,7 +17,7 @@ export function updateGoods(data) {
   })
 }
 
-export function getAllGoods(params) {
+export function getGoodsList(params) {
   return request({
     url: '/web/goods/getGoodsList',
     method: 'get',
