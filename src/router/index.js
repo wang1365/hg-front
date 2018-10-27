@@ -144,7 +144,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'brand',
-        component: () => import('@/views/goods/GoodsCategory'),
+        component: () => import('@/views/goods/GoodsBrand'),
         name: 'GoodsBrand',
         meta: { title: 'goodsBrand', icon: 'example', noCache: true }
       },
