@@ -121,16 +121,44 @@ export const asyncRouterMap = [
         meta: { title: 'company', icon: 'tab', noCache: true }
       },
       {
-        path: 'goods',
-        component: () => import('@/views/goods/index'),
-        name: 'Goods',
-        meta: { title: 'goods', icon: 'example', noCache: true }
-      },
-      {
         path: 'qualification',
         component: () => import('@/views/qualification/index'),
         name: 'Qualification',
         meta: { title: 'qualification', icon: 'el-icon-tickets', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/goods',
+    component: Layout,
+    meta: {
+      title: 'goods',
+      icon: 'el-icon-menu'
+    },
+    children: [
+      {
+        path: 'category',
+        component: () => import('@/views/goods/GoodsCategory'),
+        name: 'GoodsCategory',
+        meta: { title: 'goodsCategory', icon: 'example', noCache: true }
+      },
+      {
+        path: 'brand',
+        component: () => import('@/views/goods/GoodsCategory'),
+        name: 'GoodsBrand',
+        meta: { title: 'goodsBrand', icon: 'example', noCache: true }
+      },
+      {
+        path: 'info',
+        component: () => import('@/views/goods/GoodsCategory'),
+        name: 'GoodsInfo',
+        meta: { title: 'goodsInfo', icon: 'example', noCache: true }
+      },
+      {
+        path: 'label',
+        component: () => import('@/views/goods/GoodsCategory'),
+        name: 'GoodsLabel',
+        meta: { title: 'goodsLabel', icon: 'example', noCache: true }
       }
     ]
   },

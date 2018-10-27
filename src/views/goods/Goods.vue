@@ -1,39 +1,25 @@
 <template>
   <div class="main">
-    <GoodsDialog ref="formDialog" @add-success="updateGoodsList" />
+    <GoodsDialog ref="formDialog" :plant-list="items" @add-success="updateGoodsList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">添加商品</el-button>
-      <el-switch
-        v-model="cardMode"
-        style="margin-left: 20px"
-        active-text="卡片显示"
-        inactive-text="表格显示"/>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">新增</el-button>
     </el-row>
-    <el-row v-if="cardMode">
-      <el-col v-for="item in items" :key="item.id" :span="6" :offset="2" >
-        <el-card class="card">
-          <div style="margin-bottom: 5px">{{ item.name }}</div>
-          <img :src="item.imageUrl" class="image" >
-          <div style="bottom:10px;">
-            <div class="bottom clearfix">
-              <el-button type="warning" size="mini" class="button" @click="onDeleteBtnClick(item.id)">删除</el-button>
-              <el-button type="primary" size="mini" class="button" @click="showModal('modify', item)">修改</el-button>
-            </div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-row v-if="!cardMode" class="table">
-      <el-table :data="items" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100px"/>
-        <el-table-column prop="name" label="名称" width="80px"/>
-        <el-table-column label="图片">
-          <template slot-scope="scope">
-            <img :src="scope.row.imageUrl" width="250px" @click="onImageClick(scope.row.path)">
-          </template>
+    <el-row class="table">
+      <el-table :data="items" size="small" border stripe highlight-current-row>
+        <el-table-column prop="id" label="ID" sortable width="100" />
+        <el-table-column prop="farmerName" sortable label="农户姓名" width="100" />
+        <el-table-column prop="goodsName" sortable label="农作物名称" width="120" />
+        <el-table-column prop="year" sortable label="年度" width="80" />
+        <el-table-column sortable label="开始时间" width="100" >
+          <template slot-scope="scope">{{ scope.row.startDate | formatDate }}</template>
         </el-table-column>
-        <el-table-column label="操作" width="200px">
+        <el-table-column prop="address" label="地点" />
+        <el-table-column sortable label="记录时间" >
+          <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
+        </el-table-column>
+        <el-table-column label="操作" width="250">
           <template slot-scope="scope">
+            <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>
             <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
@@ -47,7 +33,7 @@
 </template>
 
 <script>
-import { getAllGoods, deleteGoods } from '@/api/goods'
+import { getAllGoods, deleteGoods } from '@/api/plant'
 import GoodsDialog from './GoodsDialog'
 
 export default {
@@ -57,11 +43,10 @@ export default {
   },
   data() {
     return {
+      farmerId: this.$route.params.plantId,
       items: [],
-      dialogVisible: false,
       imageDialogVisible: false,
-      selectedImage: null,
-      cardMode: true
+      selectedImage: null
     }
   },
   created() {
@@ -69,10 +54,9 @@ export default {
   },
   methods: {
     handleView(index, row) {
-      console.log(index, row)
     },
-    showModal(action, goods) {
-      this.$refs['formDialog'].show(action, goods)
+    showModal(action, item) {
+      this.$refs['formDialog'].show(action, item)
     },
     updateGoodsList() {
       getAllGoods().then(response => {
@@ -83,8 +67,11 @@ export default {
       this.selectedImage = path
       this.imageDialogVisible = true
     },
+    onCheckDetail(plantId) {
+      this.$router.push({ name: 'GoodsDetail', params: { plantId: plantId }})
+    },
     onDeleteBtnClick(id) {
-      this.$confirm('是否确认要删除该商品?', '提示', {
+      this.$confirm('是否确认要删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -133,18 +120,13 @@ export default {
     line-height: 12px;
   }
   .button {
-    margin: 5px;
+    /*padding: 0;*/
     float: right;
   }
   .image {
     width: 100%;
     display: block;
   }
-
-  /*.image:hover {*/
-    /*width: 100%;*/
-  /*}*/
-
   .clearfix:before,
   .clearfix:after {
     display: table;

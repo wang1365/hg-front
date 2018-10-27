@@ -31,3 +31,35 @@ export function deleteGoods(id) {
     params: { id }
   })
 }
+
+export function addGoodsCategory(data) {
+  return request({
+    url: '/web/goods/addGoodsCategory',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateGoodsCategory(data) {
+  return request({
+    url: '/web/goods/updateGoodsCategory',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getGoodsCategoryList(params) {
+  return request({
+    url: '/web/goods/getGoodsCategoryList',
+    method: 'get',
+    params: params
+  })
+}
+
+export function deleteGoodsCategory(id) {
+  return request({
+    url: '/web/goods/deleteGoodsCategory',
+    method: 'post',
+    params: { id }
+  })
+}
