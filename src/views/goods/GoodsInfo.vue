@@ -1,85 +1,129 @@
 <template>
   <div class="main">
-    <GoodsDialog ref="formDialog" :plant-list="items" @add-success="updateGoodsList" />
+    <el-dialog :visible.sync="formVisible" title="新增">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="商品名称" prop="name">
+          <el-input v-model="form.name" placeholder="填写分类名称"/>
+        </el-form-item>
+        <el-form-item label="品牌" prop="imageUrl">
+          <GoodsBrandOptions v-model="form.id"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="success" size="small" @click="onSubmit('form')">保存</el-button>
+        <el-button size="small" @click="formVisible = false">取消</el-button>
+      </div>
+    </el-dialog>
+
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">新增</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModel('add')">新增</el-button>
     </el-row>
+
     <el-row class="table">
-      <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="100" />
-        <el-table-column prop="farmerName" sortable label="农户姓名" width="100" />
-        <el-table-column prop="goodsName" sortable label="农作物名称" width="120" />
-        <el-table-column prop="year" sortable label="年度" width="80" />
-        <el-table-column sortable label="开始时间" width="100" >
-          <template slot-scope="scope">{{ scope.row.startDate | formatDate }}</template>
-        </el-table-column>
-        <el-table-column prop="address" label="地点" />
-        <el-table-column sortable label="记录时间" >
-          <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
-        </el-table-column>
-        <el-table-column label="操作" width="250">
+      <el-table :data="items" stripe highlight-current-row>
+        <el-table-column prop="id" align="center" label="ID" />
+        <el-table-column prop="name" align="center" label="名称" />
+        <el-table-column prop="brand" align="center" label="品牌" />
+        <el-table-column prop="catName" align="center" label="分类" />
+        <el-table-column prop="barCode" align="center" label="条形码" />
+        <el-table-column prop="purchasePrice" align="center" label="采购价" />
+        <el-table-column prop="salePrice" align="center" label="销售价" />
+        <el-table-column prop="unit" align="center" label="单位" />
+        <el-table-column prop="weight" align="center" label="净含量" />
+        <el-table-column prop="expireDays" align="center" label="保质期天数" />
+        <el-table-column prop="isValid" align="center" label="是否生效" />
+        <el-table-column align="center" label="操作" >
           <template slot-scope="scope">
-            <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>
-            <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
+            <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-row>
-    <el-dialog :visible.sync="imageDialogVisible" center>
-      <img :src="selectedImage" width="100%" height="100%">
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getAllGoods, deleteGoods } from '@/api/plant'
-import GoodsDialog from './GoodsDialog'
+import * as api from '@/api/goods'
+import GoodsBrandOptions from './brand/GoodsBrandOptions'
 
 export default {
   name: 'Goods',
   components: {
-    GoodsDialog
+    GoodsBrandOptions
   },
   data() {
     return {
-      farmerId: this.$route.params.plantId,
+      selectedBrand: null,
+      brandOptionsVisible: false,
       items: [],
-      imageDialogVisible: false,
-      selectedImage: null
+      formVisible: false,
+      form: {
+        name: null,
+        catId: null,
+        brandId: null,
+        barCode: null,
+        purchasePrice: null,
+        salePrice: null,
+        weight: null,
+        expireDays: null,
+        desc: null,
+        isValid: null
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入名称', trigger: 'blur' }
+        ]
+      },
+      action: 'add'
     }
   },
   created() {
-    this.updateGoodsList()
+    this.refresh()
   },
   methods: {
+    showModel(action, data) {
+      this.action = action
+      this.formVisible = true
+      if (action === 'modify') {
+        this.form = Object.assign({}, data)
+      }
+    },
+    hideModel() {
+      this.formVisible = false
+    },
     handleView(index, row) {
+      console.log(index, row)
     },
-    showModal(action, item) {
-      this.$refs['formDialog'].show(action, item)
+    refresh() {
     },
-    updateGoodsList() {
-      getAllGoods().then(response => {
-        this.items = response.data.data
+    onSubmit(form) {
+      this.$refs[form].validate((valid) => {
+        if (!valid) {
+          return false
+        }
+
+        const restInvoke = this.action === 'modify' ? api.updateGoods : api.addGoods
+        const msgPrefix = this.action === 'modify' ? '修改' : '添加'
+        restInvoke(this.form).then((response) => {
+          this.$message({ message: `${msgPrefix}商品成功`, type: 'success' })
+          this.refresh()
+          this.hideModel()
+        }).catch(err => {
+          this.$message({ message: `${msgPrefix}失败：${err}`, type: 'error' })
+        })
       })
     },
-    onImageClick(path) {
-      this.selectedImage = path
-      this.imageDialogVisible = true
-    },
-    onCheckDetail(plantId) {
-      this.$router.push({ name: 'GoodsDetail', params: { plantId: plantId }})
-    },
     onDeleteBtnClick(id) {
-      this.$confirm('是否确认要删除?', '提示', {
+      this.$confirm('是否确认要删除该商品?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteGoods(id)
+        api.deleteGoods(id)
           .then(response => {
             this.$message({ type: 'success', message: '删除成功!' })
-            this.updateGoodsList()
+            this.refresh()
           })
           .catch(err => {
             this.$message({ type: 'error', message: '删除失败：' + err })
@@ -120,13 +164,18 @@ export default {
     line-height: 12px;
   }
   .button {
-    /*padding: 0;*/
+    margin: 5px;
     float: right;
   }
   .image {
     width: 100%;
     display: block;
   }
+
+  /*.image:hover {*/
+  /*width: 100%;*/
+  /*}*/
+
   .clearfix:before,
   .clearfix:after {
     display: table;

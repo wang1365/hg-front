@@ -144,13 +144,13 @@ export const asyncRouterMap = [
       },
       {
         path: 'brand',
-        component: () => import('@/views/goods/GoodsBrand'),
+        component: () => import('@/views/goods/brand/GoodsBrand'),
         name: 'GoodsBrand',
         meta: { title: 'goodsBrand', icon: 'example', noCache: true }
       },
       {
         path: 'info',
-        component: () => import('@/views/goods/GoodsCategory'),
+        component: () => import('@/views/goods/GoodsInfo'),
         name: 'GoodsInfo',
         meta: { title: 'goodsInfo', icon: 'example', noCache: true }
       },

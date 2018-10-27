@@ -52,7 +52,7 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: '请输入商品名称', trigger: 'blur' }
+          { required: true, message: '请输入名称', trigger: 'blur' }
         ]
       },
       action: 'add'
