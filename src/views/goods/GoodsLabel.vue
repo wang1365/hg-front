@@ -3,69 +3,47 @@
     <el-dialog :visible.sync="formVisible" title="新增">
       <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
         <el-row :span="24">
-          <el-col :span="8">
-            <el-form-item label="商品名称" prop="name">
-              <el-input v-model="form.name" placeholder="填写商品名称"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
+          <el-col :span="10">
             <el-form-item label="条形码" prop="barCode">
-              <el-input v-model="form.barCode"/>
+              <el-input v-model="form.barCode">
+                <el-button slot="append" icon="el-icon-search" @click="onSearchBarCode"/>
+              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :span="24">
-          <el-col :span="8">
-            <el-form-item label="分类" prop="catId">
-              <GoodsCategoryOptions v-model="form.catId"/>
+          <el-col :span="10">
+            <el-form-item label="商品名称" prop="name" >
+              <el-input v-model="goods.name" readonly placeholder="根据条形码自动生成" />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="品牌" prop="brandId">
-              <GoodsBrandOptions v-model="form.brandId"/>
+          <el-col :span="10">
+            <el-form-item label="商品分类" prop="catName" >
+              <el-input v-model="goods.catName" readonly placeholder="根据条形码自动生成"/>
             </el-form-item>
           </el-col>
-
-        </el-row>
-        <el-row :span="24">
-          <el-col :span="8">
-            <el-form-item label="采购价(元)" prop="purchasePrice">
-              <el-input-number v-model="form.purchasePrice" :min="0" :max="1000" :precision="2" controls-position="right"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="零售价(元)" prop="salePrice">
-              <el-input-number v-model="form.salePrice" :min="0" :max="1000" :precision="2" controls-position="right"/>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :span="24">
-          <el-col :span="8">
-            <el-form-item label="净重" prop="weight">
-              <el-input-number v-model="form.weight" :min="0" :max="1000" :precision="2" controls-position="right"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="单位" prop="unit">
-              <el-input v-model="form.unit"/>
-            </el-form-item>
-          </el-col>
-
         </el-row>
 
         <el-row :span="24">
-          <el-col :span="8">
+          <el-col :span="10">
+            <el-form-item label="商品品牌" prop="brandName">
+              <el-input v-model="goods.brandName" readonly placeholder="根据条形码自动生成"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
             <el-form-item label="保质天数" prop="expireDays">
               <el-input-number v-model="form.expireDays" controls-position="right"/>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="描述" prop="desc">
-              <el-input v-model="form.desc" type="textarea"/>
+        </el-row>
+
+        <el-row :span="24">
+          <el-col :span="10">
+            <el-form-item label="电子标签" prop="labelCode">
+              <el-input v-model="form.labelCode" type="textarea"/>
             </el-form-item>
           </el-col>
         </el-row>
-
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -81,18 +59,14 @@
     <el-row class="table">
       <el-table :data="items" stripe highlight-current-row>
         <el-table-column prop="id" align="center" label="ID" />
-        <el-table-column prop="name" align="center" label="名称" />
-        <el-table-column prop="brandName" align="center" label="品牌" />
-        <el-table-column prop="catName" align="center" label="分类" />
+        <el-table-column prop="name" align="center" label="商品名称" />
+        <el-table-column prop="status" align="center" label="标签状态" />
+        <el-table-column prop="labelCode" align="center" label="电子标签" />
         <el-table-column prop="barCode" align="center" label="条形码" />
-        <el-table-column prop="purchasePrice" align="center" label="采购价(元)" />
-        <el-table-column prop="salePrice" align="center" label="销售价(元)" />
-        <el-table-column prop="unit" align="center" label="单位" />
-        <el-table-column prop="weight" align="center" label="净含量" />
+        <el-table-column prop="brandName" align="center" lchuangiabel="品牌" />
+        <el-table-column prop="catName" align="center" label="分类" />
         <el-table-column prop="expireDays" align="center" label="保质期天数" />
-        <el-table-column prop="isValid" align="center" label="是否生效" >
-          <template slot-scope="scope">{{ scope.row.valid ? '是' : '否' }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" align="center" label="创建时间" />
         <el-table-column align="center" label="操作" min-width="150px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
@@ -106,13 +80,10 @@
 
 <script>
 import * as api from '@/api/goods'
-import GoodsBrandOptions from './brand/GoodsBrandOptions'
-import GoodsCategoryOptions from './category/GoodsCategoryOptions'
 
 export default {
-  name: 'Goods',
+  name: 'GoodsLabel',
   components: {
-    GoodsBrandOptions, GoodsCategoryOptions
   },
   data() {
     return {
@@ -121,44 +92,37 @@ export default {
       items: [],
       formVisible: false,
       form: {
-        name: null,
-        catId: null,
-        brandId: null,
         barCode: null,
-        purchasePrice: null,
-        salePrice: null,
-        weight: null,
-        expireDays: null,
-        desc: null,
-        isValid: null
+        labelCode: null,
+        productDate: null,
+        expireDays: null
+      },
+      goods: {
+        name: null,
+        catName: null,
+        brandName: null
       },
       rules: {
-        name: [
-          { required: true, message: '商品名称不能为空', trigger: 'blur' }
-        ],
         barCode: [
           { required: true, message: '条形码不能为空', trigger: 'blur' }
         ],
-        brandId: [
-          { required: true, message: '请选择品牌', trigger: 'blur' }
+        labelCode: [
+          { required: true, message: '标签码不能为空', trigger: 'blur' }
         ],
-        catId: [
-          { required: true, message: '请选择分类', trigger: 'blur' }
-        ],
-        purchasePrice: [
-          { required: true, message: '采购价格不能为空', trigger: 'blur' }
-        ],
-        salePrice: [
-          { required: true, message: '销售价格不能为空', trigger: 'blur' }
-        ],
-        unit: [
-          { required: true, message: '单位不能为空', trigger: 'blur' }
-        ],
-        weight: [
-          { required: true, message: '净重不能为空', trigger: 'blur' }
+        productDate: [
+          { required: true, message: '生产日期不能为空', trigger: 'blur' }
         ],
         expireDays: [
           { required: true, message: '保质天数不能为空', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '商品名称不能为空', trigger: 'blur' }
+        ],
+        catName: [
+          { required: true, message: '商品分类不能为空', trigger: 'blur' }
+        ],
+        brandName: [
+          { required: true, message: '商品品牌不能为空', trigger: 'blur' }
         ]
       },
       action: 'add'
@@ -182,7 +146,7 @@ export default {
       console.log(index, row)
     },
     refresh() {
-      api.getGoodsList().then(res => {
+      api.getGoodsLabelList().then(res => {
         this.items = res.data.data
       })
     },
@@ -192,7 +156,7 @@ export default {
           return false
         }
 
-        const restInvoke = this.action === 'modify' ? api.updateGoods : api.addGoods
+        const restInvoke = this.action === 'modify' ? api.updateGoodsLabel : api.addGoodsLabel
         const msgPrefix = this.action === 'modify' ? '修改' : '添加'
         restInvoke(this.form).then((response) => {
           this.$message({ message: `${msgPrefix}商品成功`, type: 'success' })
@@ -220,6 +184,18 @@ export default {
       }).catch(() => {
         this.$message({ type: 'info', message: '已取消删除' })
       })
+    },
+    onSearchBarCode() {
+      if (!this.form.barCode) {
+        return
+      }
+      api.getGoodsByBarCode(this.form.barCode).then(res => {
+        if (res.data.data) {
+          this.goods = res.data.data
+        } else {
+          this.$message({ type: 'warning', message: `找不到条形码"${this.form.barCode}"对应的商品` })
+        }
+      }).catch(() => this.$message({ type: 'error', message: '服务器内部错误' }))
     }
   }
 }

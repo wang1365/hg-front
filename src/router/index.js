@@ -156,7 +156,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'label',
-        component: () => import('@/views/goods/category/GoodsCategory'),
+        component: () => import('@/views/goods/GoodsLabel'),
         name: 'GoodsLabel',
         meta: { title: 'goodsLabel', icon: 'example', noCache: true }
       }

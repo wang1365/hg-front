@@ -33,6 +33,14 @@ export function deleteGoods(id) {
   })
 }
 
+export function getGoodsByBarCode(barCode) {
+  return request({
+    url: '/web/goods/getGoodsByBarCode',
+    method: 'get',
+    params: { barCode }
+  })
+}
+
 /**  商品分类 */
 export function addGoodsCategory(data) {
   return request({
@@ -92,6 +100,39 @@ export function getGoodsBrandList(params) {
 }
 
 export function deleteGoodsBrand(id) {
+  return request({
+    url: '/web/goods/deleteGoodsBrand',
+    method: 'post',
+    params: { id }
+  })
+}
+
+/**  商品品牌 */
+export function addGoodsLabel(data) {
+  return request({
+    url: '/web/goods/addGoodsLabel',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateGoodsLabel(data) {
+  return request({
+    url: '/web/goods/updateGoodsLabel',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getGoodsLabelList(params) {
+  return request({
+    url: '/web/goods/getGoodsLabelList',
+    method: 'get',
+    params: params
+  })
+}
+
+export function deleteGoodsLabel(id) {
   return request({
     url: '/web/goods/deleteGoodsBrand',
     method: 'post',
