@@ -20,11 +20,11 @@
     </el-row>
 
     <el-row class="table">
-      <el-table :data="items" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100px"/>
-        <el-table-column prop="name" label="名称" width="200px"/>
-        <el-table-column prop="desc" label="描述" />
-        <el-table-column label="操作" width="200px">
+      <el-table :data="items" stripe highlight-current-row>
+        <el-table-column prop="id" align="center" label="ID" />
+        <el-table-column prop="name" align="center" label="名称" />
+        <el-table-column prop="desc" align="center" label="描述" />
+        <el-table-column align="center" label="操作" >
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
