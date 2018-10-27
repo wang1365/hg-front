@@ -88,9 +88,14 @@ export default {
 
         const restInvoke = this.action === 'modify' ? api.updateGoodsBrand : api.addGoodsBrand
         const msgPrefix = this.action === 'modify' ? '修改' : '添加'
-        restInvoke(this.form).then((response) => {
-          this.$message({ message: `${msgPrefix}成功`, type: 'success' })
-          this.refresh()
+        restInvoke(this.form).then(res => {
+          if (res.data.success) {
+            this.$message({ message: `${msgPrefix}成功`, type: 'success' })
+            this.refresh()
+          } else {
+            this.$message({ message: res.data.message, type: 'error' })
+          }
+
           this.hideModel()
         }).catch(err => {
           this.$message({ message: `${msgPrefix}失败：${err}`, type: 'error' })
@@ -104,9 +109,13 @@ export default {
         type: 'warning'
       }).then(() => {
         api.deleteGoodsBrand(id)
-          .then(response => {
-            this.$message({ type: 'success', message: '删除成功!' })
-            this.refresh()
+          .then(res => {
+            if (res.data.success) {
+              this.$message({ message: '删除成功', type: 'success' })
+              this.refresh()
+            } else {
+              this.$message({ message: res.data.message, type: 'error' })
+            }
           })
           .catch(err => {
             this.$message({ type: 'error', message: '删除失败：' + err })

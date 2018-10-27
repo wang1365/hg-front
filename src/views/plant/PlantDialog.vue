@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { getAllGoods } from '@/api/goods'
+import { getGoodsList } from '@/api/goods'
 import { getAllPerson } from '@/api/person'
 import { addPlant, updatePlant } from '@/api/plant'
 
@@ -127,7 +127,7 @@ export default {
       })
     },
     getGoodsList() {
-      getAllGoods().then(res => {
+      getGoodsList().then(res => {
         this.goodsList = res.data.data
       }).catch(err => {
         this.$message({ message: `获取农作物名称列表失败, ${err}`, type: 'error' })

@@ -38,7 +38,7 @@
 
 <script>
 import { getAllQualityReport, deleteQualityReport } from '@/api/qualityReport'
-import { getAllGoods } from '@/api/goods'
+import { getGoodsList } from '@/api/goods'
 import ReportDialog from './ReportDialog'
 
 export default {
@@ -58,7 +58,7 @@ export default {
   },
   created() {
     this.updateReportList()
-    getAllGoods().then(response => { this.goodsList = response.data })
+    getGoodsList().then(response => { this.goodsList = response.data })
   },
   methods: {
     handleView(index, row) {

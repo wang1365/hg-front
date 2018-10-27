@@ -104,9 +104,13 @@ export default {
         type: 'warning'
       }).then(() => {
         api.deleteGoodsCategory(id)
-          .then(response => {
-            this.$message({ type: 'success', message: '删除成功!' })
-            this.refresh()
+          .then(res => {
+            if (res.data.success) {
+              this.$message({ message: '删除成功', type: 'success' })
+              this.refresh()
+            } else {
+              this.$message({ message: res.data.message, type: 'error' })
+            }
           })
           .catch(err => {
             this.$message({ type: 'error', message: '删除失败：' + err })
