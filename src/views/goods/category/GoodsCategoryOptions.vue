@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-button @click="visible = true">{{ brand ? brand.name : '选择商品品牌' }}</el-button>
-    <el-dialog :visible.sync="visible" append-to-body title="选择品牌">
+    <el-button @click="visible = true">{{ category ? category.name : '选择商品分类' }}</el-button>
+    <el-dialog :visible.sync="visible" append-to-body title="选择分类">
       <el-table :data="items" stripe highlight-current-row @current-change="onCurrentChange">
         <el-table-column label="选择" width="70px">
           <template slot-scope="scope">
@@ -9,7 +9,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="id" center label="ID" />
-        <el-table-column prop="name" center label="品牌名称" />
+        <el-table-column prop="name" center label="分类名称" />
         <el-table-column prop="desc" center label="描述" />
       </el-table>
       <div slot="footer" class="dialog-footer">
@@ -24,19 +24,19 @@
 import * as api from '@/api/goods'
 
 export default {
-  name: 'GoodsBrand',
+  name: 'GoodsCategory',
   components: {
   },
   model: {
-    prop: 'brandId',
-    event: 'brandChangeEvent'
+    prop: 'categoryId',
+    event: 'categoryChangeEvent'
   },
   props: {
   },
   data() {
     return {
       visible: false,
-      brand: null,
+      category: null,
       items: [],
       currentRow: null,
       radioIndex: null
@@ -45,7 +45,7 @@ export default {
   created() {
   },
   mounted() {
-    api.getGoodsBrandList().then(res => {
+    api.getGoodsCategoryList().then(res => {
       this.items = res.data.data
     })
   },
@@ -54,8 +54,8 @@ export default {
       this.currentRow = val
     },
     onSubmit() {
-      this.brand = this.items[this.radioIndex]
-      this.$emit('brandChangeEvent', this.items[this.radioIndex].id)
+      this.category = this.items[this.radioIndex]
+      this.$emit('categoryChangeEvent', this.items[this.radioIndex].id)
       this.hide()
     },
     show() {

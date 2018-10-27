@@ -1,11 +1,11 @@
 <template>
   <div class="main">
     <el-dialog :visible.sync="formVisible" title="新增">
-      <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
         <el-row :span="24">
           <el-col :span="8">
             <el-form-item label="商品名称" prop="name">
-              <el-input v-model="form.name" placeholder="填写分类名称"/>
+              <el-input v-model="form.name" placeholder="填写商品名称"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -29,12 +29,12 @@
         </el-row>
         <el-row :span="24">
           <el-col :span="8">
-            <el-form-item label="采购价" prop="purchasePrice">
+            <el-form-item label="采购价(元)" prop="purchasePrice">
               <el-input-number v-model="form.purchasePrice" :min="0" :max="1000" :precision="2" controls-position="right"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="零售价" prop="salePrice">
+            <el-form-item label="零售价(元)" prop="salePrice">
               <el-input-number v-model="form.salePrice" :min="0" :max="1000" :precision="2" controls-position="right"/>
             </el-form-item>
           </el-col>
