@@ -138,7 +138,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'category',
-        component: () => import('@/views/goods/GoodsCategory'),
+        component: () => import('@/views/goods/category/GoodsCategory'),
         name: 'GoodsCategory',
         meta: { title: 'goodsCategory', icon: 'example', noCache: true }
       },
@@ -156,7 +156,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'label',
-        component: () => import('@/views/goods/GoodsCategory'),
+        component: () => import('@/views/goods/category/GoodsCategory'),
         name: 'GoodsLabel',
         meta: { title: 'goodsLabel', icon: 'example', noCache: true }
       }

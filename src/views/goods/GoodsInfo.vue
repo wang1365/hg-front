@@ -5,8 +5,11 @@
         <el-form-item label="商品名称" prop="name">
           <el-input v-model="form.name" placeholder="填写分类名称"/>
         </el-form-item>
-        <el-form-item label="品牌" prop="imageUrl">
-          <GoodsBrandOptions v-model="form.id"/>
+        <el-form-item label="品牌" prop="brandId">
+          <GoodsBrandOptions v-model="form.brandId"/>
+        </el-form-item>
+        <el-form-item label="分类" prop="catId">
+          <GoodsCategoryOptions v-model="form.catId"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -46,11 +49,12 @@
 <script>
 import * as api from '@/api/goods'
 import GoodsBrandOptions from './brand/GoodsBrandOptions'
+import GoodsCategoryOptions from './category/GoodsCategoryOptions'
 
 export default {
   name: 'Goods',
   components: {
-    GoodsBrandOptions
+    GoodsBrandOptions, GoodsCategoryOptions
   },
   data() {
     return {
@@ -73,6 +77,12 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入名称', trigger: 'blur' }
+        ],
+        brandId: [
+          { required: true, message: '请选择品牌', trigger: 'blur' }
+        ],
+        catId: [
+          { required: true, message: '请选择分类', trigger: 'blur' }
         ]
       },
       action: 'add'
