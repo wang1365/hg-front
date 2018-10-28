@@ -24,10 +24,10 @@ export function updatePromotion(data) {
   })
 }
 
-export function deletePromotion(id) {
+export function deletePromotion(params) {
   return request({
-    url: '/web/promotion/deletePromotion',
+    url: '/web/promotion/deletePromotionByIdAndRuleType',
     method: 'post',
-    params: { id }
+    params: params
   })
 }

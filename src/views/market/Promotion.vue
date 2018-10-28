@@ -23,7 +23,7 @@
         <el-table-column align="center" label="操作" width="200px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
-            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id, scope.row.ruleType)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -65,14 +65,14 @@ export default {
         this.items = response.data.data
       })
     },
-    onDeleteBtnClick(id) {
+    onDeleteBtnClick(id, ruleType) {
       console.log('promotion id', id)
       this.$confirm('是否确认要删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        api.deletePromotion(id)
+        api.deletePromotion({ id, ruleType })
           .then(res => {
             if (res.data.success) {
               this.$message({ message: '删除成功', type: 'success' })

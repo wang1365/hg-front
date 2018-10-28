@@ -39,7 +39,7 @@
         </el-col>
         <el-col v-if="form.ruleType === 1" :span="8">
           <el-form-item label="优惠金额" prop="firstReductionValue">
-            <el-input v-model="form.firstReduction.value" placeholder="优惠金额"/>
+            <el-input v-model="form.firstReduction.reduceValue" placeholder="优惠金额"/>
           </el-form-item>
         </el-col>
         <el-col v-if="form.ruleType === 2" :span="2" :offset="1">
@@ -47,7 +47,7 @@
         </el-col>
       </el-row>
       <template v-if="form.ruleType === 2">
-        <template v-for="(item, i) in form.fullReduction" >
+        <template v-for="(item, i) in form.fullReductions" >
           <el-row :span="24" :key="item">
             <el-col :span="1" :offset="3">
               <el-tag type="info">{{ i+1 }}</el-tag>
@@ -59,11 +59,11 @@
             </el-col>
             <el-col :span="6" :offset="-1">
               <el-form-item label="立减" label-width="50px" prop="firstReductionValue">
-                <el-input v-model="item.reductionValue" placeholder="优惠金额"/>
+                <el-input v-model="item.reduceValue" placeholder="优惠金额"/>
               </el-form-item>
             </el-col>
-            <el-col v-if="form.fullReduction.length>1" :span="1" :offset="1">
-              <el-button type="danger" size="mini" icon="el-icon-minus" plain circle @click="form.fullReduction.splice(i, 1)"/>
+            <el-col v-if="form.fullReductions.length>1" :span="1" :offset="1">
+              <el-button type="danger" size="mini" icon="el-icon-minus" plain circle @click="form.fullReductions.splice(i, 1)"/>
             </el-col>
           </el-row>
         </template>
@@ -83,8 +83,8 @@
       </el-row>
       <el-row v-if="form.ruleType === 4">
         <el-col :span="16" :offset="3">
-          <el-form-item :label="formatDiscount(form.discount.value)" label-width="60px" prop="disCountValue">
-            <el-slider v-model="form.discount.value" :min="0" :max="1" :step="0.01" :format-tooltip="formatDiscount" input-size="mini" show-input/>
+          <el-form-item :label="formatDiscount(form.discount.rate)" label-width="60px" prop="discountRate">
+            <el-slider v-model="form.discount.rate" :min="0" :max="1" :step="0.01" :format-tooltip="formatDiscount" input-size="mini" show-input/>
           </el-form-item>
         </el-col>
       </el-row>
@@ -117,10 +117,10 @@ export default {
         includeAllCat: null,
         includeAllBrand: null,
         includeAllHg: null,
-        firstReduction: { value: null },
-        fullReduction: [{ fullValue: null, reduceValue: null }], // { fullValue: null, reduceValue: null }
+        firstReduction: { reduceValue: null },
+        fullReductions: [{ fullValue: null, reduceValue: null }], // { fullValue: null, reduceValue: null }
         randomReduction: { minValue: 0.01, maxValue: 1 },
-        discount: { value: 1.0 }
+        discount: { rate: 1.0 }
       },
       formRules: {
         name: [
@@ -181,7 +181,7 @@ export default {
       })
     },
     onNewFullReduction() {
-      this.form.fullReduction.push({ fullValue: null, reduceValue: null })
+      this.form.fullReductions.push({ fullValue: null, reduceValue: null })
     },
     formatDiscount(value) {
       if (value === 0.0) {
