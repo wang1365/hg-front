@@ -1,16 +1,17 @@
 <template>
   <div class="main">
     <PromotionEdit ref="dialog"/>
-
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModel('add')">新增</el-button>
     </el-row>
-
     <el-row class="table">
       <el-table :data="items" stripe highlight-current-row>
         <el-table-column prop="id" align="center" label="ID" />
-        <el-table-column prop="name" align="center" label="品牌名称" />
-        <el-table-column prop="desc" align="center" label="描述" />
+        <el-table-column prop="name" align="center" label="促销活动名称" />
+        <el-table-column prop="ruleName" align="center" label="促销类型" />
+        <el-table-column prop="startTime" align="center" label="开始时间" />
+        <el-table-column prop="endTime" align="center" label="结束时间" />
+        <el-table-column prop="audited" align="center" label="审核状态" />
         <el-table-column align="center" label="操作" width="200px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
@@ -35,25 +36,6 @@ export default {
     return {
       items: [],
       formVisible: false,
-      form: {
-        name: null,
-        startTime: null,
-        endTime: null,
-        limitTimes: 0,
-        ruleType: null,
-        includeAllCat: null,
-        includeAllBrand: null,
-        includeAllHg: null,
-        firstReduction: { value: null },
-        fullReduction: [], // { fullValue: null, reduceValue: null }
-        randomReduction: { minValue: null, maxValue: null },
-        discount: { value: null }
-      },
-      rules: {
-        name: [
-          { required: true, message: '请输入名称', trigger: 'blur' }
-        ]
-      },
       action: 'add'
     }
   },
