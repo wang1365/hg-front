@@ -14,8 +14,8 @@
         <el-table-column prop="ownerPhone" label="负责人手机号码" width="220" />
         <el-table-column label="操作" width="200" >
           <template slot-scope="scope">
-            <el-button size="mini" type="warning" @click="showArea(scope.row.id)">详情</el-button>
-            <el-button size="mini" type="warning" @click="editArea(scope.row.id)">编辑</el-button>
+            <el-button size="mini" type="warning" @click="showArea(scope.row)">详情</el-button>
+            <el-button size="mini" type="warning" @click="editArea(scope.row)">编辑</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -32,6 +32,11 @@ export default {
   components: {
     AreaDialog
   },
+  data() {
+    return {
+      items: []
+    }
+  },
   created() {
     getAreaList().then(response => {
       this.items = response.data.data
@@ -44,13 +49,11 @@ export default {
     createArea() {
       this.showAreaDialog(null, 'create')
     },
-    showArea(id) {
-      // TODO data
-      this.showAreaDialog(null, 'show')
+    showArea(area) {
+      this.showAreaDialog(area, 'show')
     },
-    editArea(id) {
-      // TODO data
-      this.showAreaDialog(null, 'edit')
+    editArea(area) {
+      this.showAreaDialog(area, 'edit')
     }
   }
 }
