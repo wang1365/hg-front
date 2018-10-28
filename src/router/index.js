@@ -137,6 +137,22 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/user',
+    component: Layout,
+    meta: {
+      title: 'user',
+      icon: 'el-icon-menu'
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/user/User'),
+        name: 'UserList',
+        meta: { title: 'userList', icon: 'example', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/order',
     component: Layout,
     children: [

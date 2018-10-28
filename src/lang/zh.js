@@ -76,7 +76,9 @@ export default {
     waybill: '运单管理',
     image: '图片管理',
     market: '推广',
-    promotion: '促销活动'
+    promotion: '促销活动',
+    user: '用户',
+    userList: '用户列表'
   },
   navbar: {
     logOut: '退出登录',
