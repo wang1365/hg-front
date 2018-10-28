@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="visible" :title="title">
-    <el-form ref="form" :model="form" :rules="formRules" label-width="120px" size="mini">
+    <el-form ref="form" :model="form" :rules="formRules" label-width="120px" size="small">
       <el-row>
         <el-col :span="12">
           <el-form-item label="促销活动名称" prop="name">
@@ -53,7 +53,7 @@
               <el-tag type="info">{{ i+1 }}</el-tag>
             </el-col>
             <el-col :span="8" >
-              <el-form-item label="订单金额满" label-width="90px" prop="ruleType">
+              <el-form-item label="订单金额满" label-width="100px" prop="ruleType">
                 <el-input v-model="item.fullValue" placeholder="订单金额"/>
               </el-form-item>
             </el-col>
@@ -90,8 +90,8 @@
       </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="success" size="small" @click="onSubmit('form')">保存</el-button>
-      <el-button size="small" @click="visible = false">取消</el-button>
+      <el-button type="success" size="small" @click="onSubmit('form')">保 存</el-button>
+      <el-button size="small" @click="visible = false">取 消</el-button>
     </div>
   </el-dialog>
 </template>
