@@ -143,6 +143,22 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/market',
+    component: Layout,
+    meta: {
+      title: 'market',
+      icon: 'el-icon-menu'
+    },
+    children: [
+      {
+        path: 'promotion',
+        component: () => import('@/views/market/Promotion'),
+        name: 'Promotion',
+        meta: { title: 'promotion', icon: 'example', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/order',
     component: Layout,
     children: [
