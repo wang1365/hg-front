@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { getAllGoods } from '@/api/goods'
+import { getGoodsList } from '@/api/goods'
 export default {
   name: 'ReportForm',
   props: {
@@ -89,7 +89,7 @@ export default {
   },
   mounted() {
     this.token = this.$store.getters.token
-    getAllGoods()
+    getGoodsList()
       .then(response => { this.goodsList = response.data.data })
       .catch(err => console.error(err))
   },

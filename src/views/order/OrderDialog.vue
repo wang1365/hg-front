@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { getAllGoods } from '@/api/goods'
+import { getGoodsList } from '@/api/goods'
 import { getAllQualityReport } from '@/api/qualityReport'
 import { addOrder, updateOrder } from '@/api/order'
 import { getAllPerson } from '@/api/person'
@@ -259,7 +259,7 @@ export default {
     },
     getGoodsList() {
       this.loading = true
-      getAllGoods().then(res => {
+      getGoodsList().then(res => {
         this.loading = false
         this.goodsList = res.data.data
       }).catch(err => {
