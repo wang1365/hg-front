@@ -49,8 +49,11 @@
       <template v-if="form.ruleType === 2">
         <template v-for="(item, i) in form.fullReduction" >
           <el-row :span="24" :key="item">
-            <el-col :span="8" :offset="2">
-              <el-form-item label="订单金额满" prop="ruleType">
+            <el-col :span="1" :offset="3">
+              <el-tag type="info">{{ i+1 }}</el-tag>
+            </el-col>
+            <el-col :span="8" >
+              <el-form-item label="订单金额满" label-width="90px" prop="ruleType">
                 <el-input v-model="item.fullValue" placeholder="订单金额"/>
               </el-form-item>
             </el-col>
@@ -60,7 +63,7 @@
               </el-form-item>
 
             </el-col>
-            <el-col :span="1" :offset="1">
+            <el-col v-if="form.fullReduction.length>1" :span="1" :offset="1">
               <el-button type="danger" size="mini" icon="el-icon-minus" plain circle @click="form.fullReduction.splice(i, 1)"/>
             </el-col>
 
