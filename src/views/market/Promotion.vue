@@ -1,19 +1,6 @@
 <template>
   <div class="main">
-    <el-dialog :visible.sync="formVisible" title="新增" width="30%">
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="品牌名称" prop="name">
-          <el-input v-model="form.name" placeholder="填写品牌名称"/>
-        </el-form-item>
-        <el-form-item label="描述" prop="imageUrl">
-          <el-input v-model="form.desc" type="textarea" placeholder="填写描述"/>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="success" size="small" @click="onSubmit('form')">保存</el-button>
-        <el-button size="small" @click="formVisible = false">取消</el-button>
-      </div>
-    </el-dialog>
+    <PromotionEdit ref="dialog"/>
 
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModel('add')">新增</el-button>
@@ -37,10 +24,12 @@
 
 <script>
 import * as api from '@/api/promotion'
+import PromotionEdit from './PromotionEdit'
 
 export default {
   name: 'Promotion',
   components: {
+    PromotionEdit
   },
   data() {
     return {
@@ -50,7 +39,7 @@ export default {
         name: null,
         startTime: null,
         endTime: null,
-        limitTimes: null,
+        limitTimes: 0,
         ruleType: null,
         includeAllCat: null,
         includeAllBrand: null,
@@ -73,14 +62,7 @@ export default {
   },
   methods: {
     showModel(action, data) {
-      this.action = action
-      this.formVisible = true
-      if (action === 'modify') {
-        this.form = Object.assign({}, data)
-      }
-    },
-    hideModel() {
-      this.formVisible = false
+      this.$refs['dialog'].show(action, data)
     },
     handleView(index, row) {
       console.log(index, row)
@@ -88,28 +70,6 @@ export default {
     refresh() {
       api.getPromotionList().then(response => {
         this.items = response.data.data
-      })
-    },
-    onSubmit(form) {
-      this.$refs[form].validate((valid) => {
-        if (!valid) {
-          return false
-        }
-
-        const restInvoke = this.action === 'modify' ? api.updatePromotion : api.addPromotion
-        const msgPrefix = this.action === 'modify' ? '修改' : '添加'
-        restInvoke(this.form).then(res => {
-          if (res.data.success) {
-            this.$message({ message: `${msgPrefix}成功`, type: 'success' })
-            this.refresh()
-          } else {
-            this.$message({ message: res.data.message, type: 'error' })
-          }
-
-          this.hideModel()
-        }).catch(err => {
-          this.$message({ message: `${msgPrefix}失败：${err}`, type: 'error' })
-        })
       })
     },
     onDeleteBtnClick(id) {

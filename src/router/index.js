@@ -87,28 +87,6 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/config',
-    component: Layout,
-    meta: {
-      title: 'config',
-      icon: 'el-icon-menu'
-    },
-    children: [
-      {
-        path: 'person',
-        component: () => import('@/views/person/index'),
-        name: 'Person',
-        meta: { title: 'person', icon: 'people', noCache: true }
-      },
-      {
-        path: 'company',
-        component: () => import('@/views/company/index'),
-        name: 'Company',
-        meta: { title: 'company', icon: 'tab', noCache: true }
-      }
-    ]
-  },
-  {
     path: '/goods',
     component: Layout,
     meta: {
@@ -197,6 +175,28 @@ export const asyncRouterMap = [
         component: () => import('@/views/image/index'),
         name: 'Image',
         meta: { title: 'image', icon: 'el-icon-picture-outline', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/config',
+    component: Layout,
+    meta: {
+      title: 'config',
+      icon: 'el-icon-menu'
+    },
+    children: [
+      {
+        path: 'person',
+        component: () => import('@/views/person/index'),
+        name: 'Person',
+        meta: { title: 'person', icon: 'people', noCache: true }
+      },
+      {
+        path: 'company',
+        component: () => import('@/views/company/index'),
+        name: 'Company',
+        meta: { title: 'company', icon: 'tab', noCache: true }
       }
     ]
   },
