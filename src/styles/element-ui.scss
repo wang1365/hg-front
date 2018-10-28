@@ -81,6 +81,20 @@
   }
 }
 
+ .el-table th {
+   text-align: center;
+   font-size: 15px;
+   font-weight: 500;
+   color: rgba(0, 0, 0, 0.85);
+   padding: 16px 8px;
+   background-color: #f7f7f7;
+ }
+
+ .el-menu-item.is-active {
+   background-color: rgb(231, 4, 4) !important;
+ }
+
+
  .el-menu {
    　　width: 160px !important;
  }
@@ -91,4 +105,8 @@
 
  .el-dialog__title {
    color: white;
+ }
+
+ .el-select {
+   display: block;
  }
