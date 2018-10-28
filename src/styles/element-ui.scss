@@ -81,11 +81,14 @@
   }
 }
 
- .el-menu-item.is-active {
-   background-color: rgb(231, 4, 4) !important;
- }
-
-
  .el-menu {
    　　width: 160px !important;
+ }
+
+ .el-dialog__header {
+   background-color: green;
+ }
+
+ .el-dialog__title {
+   color: white;
  }

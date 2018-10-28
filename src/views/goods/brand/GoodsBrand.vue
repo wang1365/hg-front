@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <el-dialog :visible.sync="formVisible" title="新增">
+    <el-dialog :visible.sync="formVisible" title="新增" width="30%">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="品牌名称" prop="name">
           <el-input v-model="form.name" placeholder="填写品牌名称"/>

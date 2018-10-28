@@ -1,9 +1,9 @@
 <template>
   <div class="main">
-    <el-dialog :visible.sync="formVisible" title="新增">
+    <el-dialog :visible.sync="formVisible" title="新增" width="800px">
       <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
         <el-row :span="24">
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item label="商品名称" prop="name">
               <el-input v-model="form.name" placeholder="填写商品名称"/>
             </el-form-item>
@@ -15,7 +15,7 @@
           </el-col>
         </el-row>
         <el-row :span="24">
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item label="分类" prop="catId">
               <GoodsCategoryOptions v-model="form.catId"/>
             </el-form-item>
@@ -28,7 +28,7 @@
 
         </el-row>
         <el-row :span="24">
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item label="采购价(元)" prop="purchasePrice">
               <el-input-number v-model="form.purchasePrice" :min="0" :max="1000" :precision="2" controls-position="right"/>
             </el-form-item>
@@ -40,12 +40,12 @@
           </el-col>
         </el-row>
         <el-row :span="24">
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item label="净重" prop="weight">
               <el-input-number v-model="form.weight" :min="0" :max="1000" :precision="2" controls-position="right"/>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="10">
             <el-form-item label="单位" prop="unit">
               <el-input v-model="form.unit"/>
             </el-form-item>
@@ -54,7 +54,7 @@
         </el-row>
 
         <el-row :span="24">
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item label="保质天数" prop="expireDays">
               <el-input-number v-model="form.expireDays" controls-position="right"/>
             </el-form-item>
