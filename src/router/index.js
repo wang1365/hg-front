@@ -65,32 +65,6 @@ export const constantRouterMap = [
       }
     ]
   }
-  // {
-  //   path: '/documentation',
-  //   component: Layout,
-  //   redirect: '/documentation/index',
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/documentation/index'),
-  //       name: 'Documentation',
-  //       meta: { title: 'documentation', icon: 'documentation', noCache: true }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/guide',
-  //   component: Layout,
-  //   redirect: '/guide/index',
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/guide/index'),
-  //       name: 'Guide',
-  //       meta: { title: 'guide', icon: 'guide', noCache: true }
-  //     }
-  //   ]
-  // }
 ]
 
 export default new Router({
@@ -131,12 +105,6 @@ export const asyncRouterMap = [
         component: () => import('@/views/company/index'),
         name: 'Company',
         meta: { title: 'company', icon: 'tab', noCache: true }
-      },
-      {
-        path: 'qualification',
-        component: () => import('@/views/qualification/index'),
-        name: 'Qualification',
-        meta: { title: 'qualification', icon: 'el-icon-tickets', noCache: true }
       }
     ]
   },
@@ -171,52 +139,6 @@ export const asyncRouterMap = [
         component: () => import('@/views/goods/GoodsLabel'),
         name: 'GoodsLabel',
         meta: { title: 'goodsLabel', icon: 'example', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/plant',
-    component: Layout,
-    meta: {
-      title: 'plantInfo',
-      icon: 'el-icon-menu'
-    },
-    children: [
-      {
-        path: 'base',
-        component: () => import('@/views/plant/base'),
-        name: 'PlantBase',
-        meta: { title: 'plantBase', icon: 'table', noCache: true }
-      },
-      {
-        path: 'detail/:plantId',
-        component: () => import('@/views/plant/detail'),
-        name: 'PlantDetail',
-        meta: { title: 'plantDetail', icon: 'excel', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/quality-report',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/quality-report/index'),
-        name: 'QualityReport',
-        meta: { title: 'qualityReport', icon: 'el-icon-mobile-phone', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/qrcode',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/qrcode/index'),
-        name: 'Qrcode',
-        meta: { title: 'qrcode', icon: 'el-icon-search', noCache: true }
       }
     ]
   },
