@@ -61,15 +61,33 @@
               <el-form-item label="立减" label-width="50px" prop="firstReductionValue">
                 <el-input v-model="item.reductionValue" placeholder="优惠金额"/>
               </el-form-item>
-
             </el-col>
             <el-col v-if="form.fullReduction.length>1" :span="1" :offset="1">
               <el-button type="danger" size="mini" icon="el-icon-minus" plain circle @click="form.fullReduction.splice(i, 1)"/>
             </el-col>
-
           </el-row>
         </template>
       </template>
+
+      <el-row v-if="form.ruleType === 3">
+        <el-col :span="7" :offset="2">
+          <el-form-item label="随机范围" prop="minValue">
+            <el-input v-model="form.randomReduction.minValue"/>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4" >
+          <el-form-item label="-" label-width="20px" prop="maxValue">
+            <el-input v-model="form.randomReduction.maxValue"/>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row v-if="form.ruleType === 4">
+        <el-col :span="16" :offset="3">
+          <el-form-item :label="formatDiscount(form.discount.value)" label-width="60px" prop="disCountValue">
+            <el-slider v-model="form.discount.value" :min="0" :max="1" :step="0.01" :format-tooltip="formatDiscount" input-size="mini" show-input/>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="success" size="small" @click="onSubmit('form')">保存</el-button>
@@ -101,8 +119,8 @@ export default {
         includeAllHg: null,
         firstReduction: { value: null },
         fullReduction: [{ fullValue: null, reduceValue: null }], // { fullValue: null, reduceValue: null }
-        randomReduction: { minValue: null, maxValue: null },
-        discount: { value: null }
+        randomReduction: { minValue: 0.01, maxValue: 1 },
+        discount: { value: 1.0 }
       },
       formRules: {
         name: [
@@ -152,6 +170,15 @@ export default {
     },
     onNewFullReduction() {
       this.form.fullReduction.push({ fullValue: null, reduceValue: null })
+    },
+    formatDiscount(value) {
+      if (value === 0.0) {
+        return '免费'
+      } else if (value === 1.0) {
+        return '全价'
+      }
+      const newV = Number(value * 10).toFixed(1)
+      return `${newV}折`
     }
   }
 }
