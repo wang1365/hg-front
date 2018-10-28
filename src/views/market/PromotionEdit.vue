@@ -113,7 +113,7 @@ export default {
         startTime: null,
         endTime: null,
         limitTimes: 0,
-        ruleType: null,
+        ruleType: 4,
         includeAllCat: null,
         includeAllBrand: null,
         includeAllHg: null,
