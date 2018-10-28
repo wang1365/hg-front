@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function addPromotion(data) {
   return request({
-    url: '/web/area/addPromotion',
+    url: '/web/promotion/addPromotion',
     method: 'post',
     data: data
   })
@@ -10,15 +10,15 @@ export function addPromotion(data) {
 
 export function getPromotionList(param) {
   return request({
-    url: '/web/area/getPromotionList',
-    method: 'getPromotionList',
-    param: param
+    url: '/web/promotion/getPromotionList',
+    method: 'get',
+    params: param
   })
 }
 
 export function updatePromotion(data) {
   return request({
-    url: '/web/area/updatePromotion',
+    url: '/web/promotion/updatePromotion',
     method: 'post',
     data: data
   })
@@ -26,8 +26,8 @@ export function updatePromotion(data) {
 
 export function deletePromotion(id) {
   return request({
-    url: '/web/area/updatePromotion',
+    url: '/web/promotion/deletePromotion',
     method: 'post',
-    param: { id }
+    params: { id }
   })
 }

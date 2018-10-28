@@ -124,7 +124,19 @@ export default {
       },
       formRules: {
         name: [
-          { required: true, message: '请输入促销活动名称', trigger: 'blur' }
+          { required: true, message: '促销活动名称不能为空', trigger: 'blur' }
+        ],
+        startTime: [
+          { required: true, message: '开始时间不能为空', trigger: 'blur' }
+        ],
+        endTime: [
+          { required: true, message: '结束时间不能为空', trigger: 'blur' }
+        ],
+        limitTimes: [
+          { required: true, message: '限制次数不能为空', trigger: 'blur' }
+        ],
+        ruleType: [
+          { required: true, message: '优惠类型不能为空', trigger: 'blur' }
         ]
       }
     }
@@ -161,7 +173,7 @@ export default {
         const msgPrefix = this.action === 'modify' ? '修改' : '添加'
         restInvoke(this.form).then((response) => {
           this.$message({ message: `${msgPrefix}促销活动成功`, type: 'success' })
-          this.$emit('add-success')
+          this.$emit('success')
           this.hide()
         }).catch(err => {
           this.$message({ message: `${msgPrefix}失败：${err}`, type: 'error' })

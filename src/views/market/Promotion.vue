@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <PromotionEdit ref="dialog"/>
+    <PromotionEdit ref="dialog" @success="refresh"/>
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModel('add')">新增</el-button>
     </el-row>
@@ -8,10 +8,18 @@
       <el-table :data="items" stripe highlight-current-row>
         <el-table-column prop="id" align="center" label="ID" />
         <el-table-column prop="name" align="center" label="促销活动名称" />
-        <el-table-column prop="ruleName" align="center" label="促销类型" />
-        <el-table-column prop="startTime" align="center" label="开始时间" />
-        <el-table-column prop="endTime" align="center" label="结束时间" />
-        <el-table-column prop="audited" align="center" label="审核状态" />
+        <el-table-column prop="ruleName" align="center" label="促销类型" >
+          <template slot-scope="scope">{{ getPromotionName(scope.row.ruleType) }}</template>
+        </el-table-column>
+        <el-table-column prop="startTime" align="center" label="开始时间" >
+          <template slot-scope="scope">{{ scope.row.startTime | formatDatetime }}</template>
+        </el-table-column>
+        <el-table-column prop="endTime" align="center" label="结束时间" >
+          <template slot-scope="scope">{{ scope.row.endTime | formatDatetime }}</template>
+        </el-table-column>
+        <el-table-column prop="audited" align="center" label="审核状态" >
+          <template slot-scope="scope">{{ scope.row.audited ? '已审核' : '未审核' }}</template>
+        </el-table-column>
         <el-table-column align="center" label="操作" width="200px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
@@ -40,6 +48,9 @@ export default {
     }
   },
   created() {
+
+  },
+  mounted() {
     this.refresh()
   },
   methods: {
@@ -55,6 +66,7 @@ export default {
       })
     },
     onDeleteBtnClick(id) {
+      console.log('promotion id', id)
       this.$confirm('是否确认要删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -75,6 +87,9 @@ export default {
       }).catch(() => {
         this.$message({ type: 'info', message: '已取消删除' })
       })
+    },
+    getPromotionName(type) {
+      return { 1: '首单立减', 2: '购物满减', 3: '随机立减', 4: '优惠折扣' }[type]
     }
   }
 }
