@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visible" :title="title" center>
+  <el-dialog :visible.sync="visible" :title="title" center @open="open()">
     <el-row :gutter="10">
       <el-col :span="12">
         <el-form ref="form" :model="area" :rules="rules" align="left" label-width="100px">
@@ -32,11 +32,7 @@
         </el-form>
       </el-col>
       <el-col :span="12">
-        <el-card class="box-card">
-          <div v-for="o in 4" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
-          </div>
-        </el-card>
+        <div id="map" />
       </el-col>
     </el-row>
     <div slot="footer" class="dialog-footer">
@@ -47,12 +43,19 @@
 </template>
 
 <script>
+import vue from 'vue'
+import BMap from 'BMap'
+
 export default {
   name: 'AreaDialog',
+  components: {
+    BMap
+  },
   props: {
   },
   data() {
     return {
+      map: null,
       visible: false,
       disabled: false,
       title: '',
@@ -87,6 +90,13 @@ export default {
   mounted() {
   },
   methods: {
+    open() {
+      vue.nextTick(_ => {
+        const map = new BMap.Map('map')
+        const point = new BMap.Point(118.717328, 36.917346)
+        map.centerAndZoom(point, 14)
+      })
+    },
     show(area, action) {
       this.visible = true
       this.title = (action === 'create') ? '新增片区' : ((action === 'show') ? '详情' : '编辑片区')
@@ -103,5 +113,9 @@ export default {
 </script>
 
 <style scoped>
-
+  #map {
+    height: 100%;
+    width: 50%;
+    position: absolute;
+  }
 </style>
