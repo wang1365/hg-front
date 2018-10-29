@@ -7,3 +7,11 @@ export function getAreaList(params) {
     params: params
   })
 }
+
+export function updateArea(data) {
+  return request({
+    url: '/web/area/updateArea',
+    method: 'post',
+    data: data
+  })
+}

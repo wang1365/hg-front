@@ -8,7 +8,7 @@
           </el-form-item>
           <el-form-item label="是否启用：" prop="enabled">
             <el-select :disabled="disabled" v-model="area.enabled" placeholder="请选择">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.enabled" />
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
           </el-form-item>
           <el-form-item label="所属机构：" prop="chargeOrg">
@@ -37,7 +37,7 @@
     </el-row>
     <div slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
-      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSubmit('form')">确定</el-button>
+      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSave('form')">确定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -45,6 +45,7 @@
 <script>
 import vue from 'vue'
 import BMap from 'BMap'
+import { updateArea } from '@/api/area'
 
 export default {
   name: 'AreaDialog',
@@ -56,14 +57,15 @@ export default {
   data() {
     return {
       map: null,
+      mapGeocoder: null,
       visible: false,
       disabled: false,
       title: '',
       options: [
-        { value: 0, label: '禁用' },
-        { value: 1, label: '启用' }
+        { value: 'false', label: '禁用' },
+        { value: 'true', label: '启用' }
       ],
-      area: null,
+      area: {},
       emptyArea: {
         name: null,
         enabled: null,
@@ -91,10 +93,13 @@ export default {
   },
   methods: {
     open() {
+      const that = this
       vue.nextTick(_ => {
-        const map = new BMap.Map('map')
-        const point = new BMap.Point(118.717328, 36.917346)
-        map.centerAndZoom(point, 14)
+        that.map = new BMap.Map('map')
+        that.mapGeocoder = new BMap.Geocoder()
+        const point = new BMap.Point(that.area.longitude || 116.404, that.area.latitude || 39.915)
+        that.map.centerAndZoom(point, 14)
+        that.map.addEventListener('click', that.mapClickHandler)
       })
     },
     show(area, action) {
@@ -103,10 +108,28 @@ export default {
       this.disabled = (action === 'show')
       if (action === 'show' || action === 'edit') {
         this.area = area
-        this.area.enabled = area.enabled ? '启用' : '禁用'
+        this.area.enabled = area.enabled.toString()
       } else {
         this.area = this.emptyArea
       }
+    },
+    mapClickHandler(option) {
+      this.area.longitude = option.point.lng
+      this.area.latitude = option.point.lat
+      const that = this
+      this.mapGeocoder.getLocation(option.point, (rs) => {
+        that.area.address = rs.address
+      })
+    },
+    onSave(form) {
+      this.$refs[form].validate((valid) => {
+        if (!valid) {
+          return false
+        }
+        updateArea(this.area).then((response) => {
+          console.log('===> ', response)
+        })
+      })
     }
   }
 }
@@ -117,5 +140,6 @@ export default {
     height: 100%;
     width: 50%;
     position: absolute;
+    border: 1px solid rgb(160, 160, 160);
   }
 </style>
