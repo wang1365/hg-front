@@ -123,6 +123,7 @@ export const asyncRouterMap = [
   {
     path: '/market',
     component: Layout,
+    alwaysShow: true,
     meta: {
       title: 'market',
       icon: 'el-icon-menu'
@@ -139,6 +140,7 @@ export const asyncRouterMap = [
   {
     path: '/user',
     component: Layout,
+    alwaysShow: true,
     meta: {
       title: 'user',
       icon: 'el-icon-menu'
