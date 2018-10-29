@@ -94,10 +94,8 @@
 
 <script>
 import { getGoodsList } from '@/api/goods'
-import { getAllQualityReport } from '@/api/qualityReport'
 import { addOrder, updateOrder } from '@/api/order'
 import { getAllPerson } from '@/api/person'
-import { getPlantListByPerson, getPickListByPlant } from '@/api/plant'
 
 export default {
   name: 'ReportForm',
@@ -279,34 +277,13 @@ export default {
     },
     getReportList() {
       this.loading = true
-      getAllQualityReport().then(res => {
-        this.loading = false
-        this.reportList = res.data.data
-      }).catch(err => {
-        this.loading = false
-        this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
-      })
     },
     updatePlantListByPerson(personId) {
       console.log('updatePlantListByPerson:', personId)
       this.loading = true
-      getPlantListByPerson(personId).then(res => {
-        this.loading = false
-        this.plantList = res.data.data
-      }).catch(err => {
-        this.loading = false
-        this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
-      })
     },
     updatePickListByPlant(plantId) {
       this.loading = true
-      getPickListByPlant(plantId).then(res => {
-        this.loading = false
-        this.pickList = res.data.data
-      }).catch(err => {
-        this.loading = false
-        this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
-      })
     }
   }
 }

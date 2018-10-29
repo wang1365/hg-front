@@ -69,17 +69,16 @@ export default {
     goodsBrand: '商品品牌管理',
     goodsInfo: '商品信息管理',
     goodsLabel: '商品标签管理',
-    qualification: '资质证书',
     company: '企业管理',
-    qrcode: '智能货柜码管理',
     order: '采购管理',
     person: '人员管理',
     config: '配置管理',
-    plantInfo: '种植信息',
-    plantBase: '种植计划',
-    plantDetail: '详情管理',
     waybill: '运单管理',
-    image: '图片管理'
+    image: '图片管理',
+    market: '推广',
+    promotion: '促销活动',
+    user: '用户',
+    userList: '用户列表'
   },
   navbar: {
     logOut: '退出登录',
@@ -168,5 +167,8 @@ export default {
     close: '关闭',
     closeOthers: '关闭其它',
     closeAll: '关闭所有'
+  },
+  market: {
+    promotion: '促销'
   }
 }

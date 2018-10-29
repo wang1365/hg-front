@@ -55,7 +55,7 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: '/config/person',
+    redirect: '/goods/category',
     children: [
       {
         path: 'dashboard',
@@ -65,32 +65,6 @@ export const constantRouterMap = [
       }
     ]
   }
-  // {
-  //   path: '/documentation',
-  //   component: Layout,
-  //   redirect: '/documentation/index',
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/documentation/index'),
-  //       name: 'Documentation',
-  //       meta: { title: 'documentation', icon: 'documentation', noCache: true }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: '/guide',
-  //   component: Layout,
-  //   redirect: '/guide/index',
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/guide/index'),
-  //       name: 'Guide',
-  //       meta: { title: 'guide', icon: 'guide', noCache: true }
-  //     }
-  //   ]
-  // }
 ]
 
 export default new Router({
@@ -109,34 +83,6 @@ export const asyncRouterMap = [
         component: () => import('@/views/area/index'),
         name: 'Area',
         meta: { title: 'area', icon: 'area', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/config',
-    component: Layout,
-    meta: {
-      title: 'config',
-      icon: 'el-icon-menu'
-    },
-    children: [
-      {
-        path: 'person',
-        component: () => import('@/views/person/index'),
-        name: 'Person',
-        meta: { title: 'person', icon: 'people', noCache: true }
-      },
-      {
-        path: 'company',
-        component: () => import('@/views/company/index'),
-        name: 'Company',
-        meta: { title: 'company', icon: 'tab', noCache: true }
-      },
-      {
-        path: 'qualification',
-        component: () => import('@/views/qualification/index'),
-        name: 'Qualification',
-        meta: { title: 'qualification', icon: 'el-icon-tickets', noCache: true }
       }
     ]
   },
@@ -175,48 +121,36 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/plant',
+    path: '/market',
     component: Layout,
+    alwaysShow: true,
     meta: {
-      title: 'plantInfo',
+      title: 'market',
       icon: 'el-icon-menu'
     },
     children: [
       {
-        path: 'base',
-        component: () => import('@/views/plant/base'),
-        name: 'PlantBase',
-        meta: { title: 'plantBase', icon: 'table', noCache: true }
-      },
-      {
-        path: 'detail/:plantId',
-        component: () => import('@/views/plant/detail'),
-        name: 'PlantDetail',
-        meta: { title: 'plantDetail', icon: 'excel', noCache: true }
+        path: 'promotion',
+        component: () => import('@/views/market/Promotion'),
+        name: 'Promotion',
+        meta: { title: 'promotion', icon: 'example', noCache: true }
       }
     ]
   },
   {
-    path: '/quality-report',
+    path: '/user',
     component: Layout,
+    alwaysShow: true,
+    meta: {
+      title: 'user',
+      icon: 'el-icon-menu'
+    },
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/quality-report/index'),
-        name: 'QualityReport',
-        meta: { title: 'qualityReport', icon: 'el-icon-mobile-phone', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/qrcode',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/qrcode/index'),
-        name: 'Qrcode',
-        meta: { title: 'qrcode', icon: 'el-icon-search', noCache: true }
+        path: 'list',
+        component: () => import('@/views/user/User'),
+        name: 'UserList',
+        meta: { title: 'userList', icon: 'example', noCache: true }
       }
     ]
   },
@@ -259,6 +193,28 @@ export const asyncRouterMap = [
         component: () => import('@/views/image/index'),
         name: 'Image',
         meta: { title: 'image', icon: 'el-icon-picture-outline', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/config',
+    component: Layout,
+    meta: {
+      title: 'config',
+      icon: 'el-icon-menu'
+    },
+    children: [
+      {
+        path: 'person',
+        component: () => import('@/views/person/index'),
+        name: 'Person',
+        meta: { title: 'person', icon: 'people', noCache: true }
+      },
+      {
+        path: 'company',
+        component: () => import('@/views/company/index'),
+        name: 'Company',
+        meta: { title: 'company', icon: 'tab', noCache: true }
       }
     ]
   },
