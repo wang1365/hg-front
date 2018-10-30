@@ -7,7 +7,7 @@
             <el-input :disabled="disabled" v-model="area.name" />
           </el-form-item>
           <el-form-item label="是否启用：" prop="enabled">
-            <el-select :disabled="disabled" v-model="area.enabled" placeholder="请选择">
+            <el-select :disabled="disabled" v-model="area.enabled" value-key="value" placeholder="请选择">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
           </el-form-item>
@@ -23,8 +23,8 @@
             <el-input :disabled="disabled" v-model="area.address" />
           </el-form-item>
           <el-form-item label="经/纬度：">
-            <el-col :span="12"><el-input :disabled="disabled" v-model="area.longitude" /></el-col>
-            <el-col :span="12"><el-input :disabled="disabled" v-model="area.latitude" /></el-col>
+            <el-col :span="12"><el-input v-model="area.longitude" disabled /></el-col>
+            <el-col :span="12"><el-input v-model="area.latitude" disabled /></el-col>
           </el-form-item>
           <el-form-item label="备注：">
             <el-input :disabled="disabled" v-model="area.comment" :rows="2" type="textarea" />
@@ -62,8 +62,8 @@ export default {
       disabled: false,
       title: '',
       options: [
-        { value: 'false', label: '禁用' },
-        { value: 'true', label: '启用' }
+        { value: false, label: '禁用' },
+        { value: true, label: '启用' }
       ],
       area: {},
       emptyArea: {
@@ -77,9 +77,9 @@ export default {
         comment: null
       },
       rules: {
-        name: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-        enabled: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-        chargeOrg: [{ required: true, message: '请选择检测日期', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入片区名称', trigger: 'blur' }],
+        enabled: [{ required: true, message: '请选择是否启用', trigger: 'blur' }],
+        chargeOrg: [{ required: true, message: '请选择所属机构', trigger: 'blur' }]
       },
       orgs: []
     }
@@ -108,7 +108,6 @@ export default {
       this.disabled = (action === 'show')
       if (action === 'show' || action === 'edit') {
         this.area = area
-        this.area.enabled = area.enabled.toString()
       } else {
         this.area = this.emptyArea
       }
@@ -127,7 +126,8 @@ export default {
           return false
         }
         updateArea(this.area).then((response) => {
-          console.log('===> ', response)
+          this.$message({ message: `修改成功`, type: 'success' })
+          this.visible = false
         })
       })
     }
