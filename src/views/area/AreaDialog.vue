@@ -12,9 +12,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="所属机构：" prop="chargeOrg">
-            <el-select :disabled="disabled" v-model="area.chargeOrg" placeholder="请选择">
-              <el-option v-for="item in orgs" :key="item.id" :label="item.name" :value="item.id"/>
-            </el-select>
+            <CompanyOption :name="area.chargeOrg" />
           </el-form-item>
           <el-form-item label="负责人：" prop="chargeOwner">
             <el-input :disabled="disabled" v-model="area.chargeOwner" />
@@ -46,11 +44,12 @@
 import vue from 'vue'
 import BMap from 'BMap'
 import { updateArea } from '@/api/area'
+import CompanyOption from './CompanyOption'
 
 export default {
   name: 'AreaDialog',
   components: {
-    BMap
+    BMap, CompanyOption
   },
   props: {
   },

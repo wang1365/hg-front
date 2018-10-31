@@ -201,7 +201,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'config',
-      icon: 'el-icon-menu'
+      icon: 'config'
     },
     children: [
       {
