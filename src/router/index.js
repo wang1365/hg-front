@@ -178,18 +178,6 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/waybill',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/waybill/index'),
-        name: 'Waybill',
-        meta: { title: 'waybill', icon: 'el-icon-news', noCache: true }
-      }
-    ]
-  },
-  {
     path: '/image',
     component: Layout,
     children: [
