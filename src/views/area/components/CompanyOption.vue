@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button style="width:100%" @click="selectCompany()">{{ name ? name : '选择所属机构' }}</el-button>
+    <el-button style="width:100%" @click="selectCompany()">{{ name ? name : '单击选择所属机构' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择机构">
       <el-radio-group v-model="companyName">
         <el-radio v-for="item in items" :label="item.name" :key="item.id" border>{{ item.name }}</el-radio>
@@ -34,7 +34,6 @@ export default {
   methods: {
     selectCompany() {
       this.visible = true
-      this.companyName = this.name
       getAllCompany().then((response) => {
         this.items = response.data.data
       })

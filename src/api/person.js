@@ -31,6 +31,14 @@ export function getPersonListByType(type) {
   })
 }
 
+export function getPersonListByCompany(companyName) {
+  return request({
+    url: '/web/person/getPersonListByCompany',
+    method: 'get',
+    params: { companyName }
+  })
+}
+
 export function deletePerson(id) {
   return request({
     url: '/web/person/deletePerson',

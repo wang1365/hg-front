@@ -15,7 +15,7 @@
             <CompanyOption :name="area.chargeOrg" @company-change="handleCompanyChange" />
           </el-form-item>
           <el-form-item label="负责人：" prop="chargeOwner">
-            <el-input :disabled="disabled" v-model="area.chargeOwner" />
+            <PersonOption :company-name="area.chargeOrg" :owner="area.chargeOwner" @person-change="handlePersonChange" />
           </el-form-item>
           <el-form-item label="详细地址：" prop="address">
             <el-input :disabled="disabled" v-model="area.address" />
@@ -44,12 +44,13 @@
 import vue from 'vue'
 import BMap from 'BMap'
 import { updateArea } from '@/api/area'
-import CompanyOption from './CompanyOption'
+import CompanyOption from './components/CompanyOption'
+import PersonOption from './components/PersonOption'
 
 export default {
   name: 'AreaDialog',
   components: {
-    BMap, CompanyOption
+    BMap, CompanyOption, PersonOption
   },
   props: {
   },
@@ -132,6 +133,9 @@ export default {
     },
     handleCompanyChange(value) {
       this.area.chargeOrg = value
+    },
+    handlePersonChange(value) {
+      this.area.chargeOwner = value
     }
   }
 }
