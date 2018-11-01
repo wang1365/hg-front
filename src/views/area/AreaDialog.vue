@@ -12,7 +12,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="所属机构：" prop="chargeOrg">
-            <CompanyOption :name="area.chargeOrg" />
+            <CompanyOption :name="area.chargeOrg" @company-change="handleCompanyChange" />
           </el-form-item>
           <el-form-item label="负责人：" prop="chargeOwner">
             <el-input :disabled="disabled" v-model="area.chargeOwner" />
@@ -129,6 +129,9 @@ export default {
           this.visible = false
         })
       })
+    },
+    handleCompanyChange(value) {
+      this.area.chargeOrg = value
     }
   }
 }
