@@ -23,6 +23,37 @@
           </template>
         </el-table-column>
       </el-table>
+
+    </el-row>
+    <el-row>
+      <el-col :md="{offset:10}" :lg="{offset:13}">
+        <div class="block">
+          <el-pagination
+            :current-page="currentPage"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="100"
+            :total="400"
+            background
+            layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"/>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :md="{offset:10}" :lg="{offset:13}">
+        <div class="block">
+          <el-pagination
+            :current-page="currentPage"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="100"
+            :total="400"
+            background
+            layout="total, sizes, prev, pager, next, jumper"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"/>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -40,7 +71,9 @@ export default {
     return {
       items: [],
       formVisible: false,
-      action: 'add'
+      action: 'add',
+
+      currentPage: 0
     }
   },
   created() {
@@ -57,6 +90,12 @@ export default {
       api.getUserList().then(response => {
         this.items = response.data.data
       })
+    },
+    handleSizeChange() {
+
+    },
+    handleCurrentChange() {
+
     }
   }
 }
