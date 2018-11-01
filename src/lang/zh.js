@@ -70,7 +70,6 @@ export default {
     goodsInfo: '商品信息管理',
     goodsLabel: '商品标签管理',
     company: '企业管理',
-    order: '采购管理',
     person: '人员管理',
     config: '配置管理',
     waybill: '运单管理',
@@ -78,7 +77,10 @@ export default {
     market: '推广',
     promotion: '促销活动',
     user: '用户',
-    userList: '用户列表'
+    userList: '用户列表',
+    order: '订单',
+    orderList: '订单列表',
+    orderItem: '订单详情'
   },
   navbar: {
     logOut: '退出登录',

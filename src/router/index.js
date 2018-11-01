@@ -157,18 +157,23 @@ export const asyncRouterMap = [
   {
     path: '/order',
     component: Layout,
+    alwaysShow: true,
+    meta: {
+      title: 'order',
+      icon: 'el-icon-menu'
+    },
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/order/index'),
+        path: 'list',
+        component: () => import('@/views/order/OrderList'),
         name: 'Order',
-        meta: { title: 'order', icon: 'el-icon-goods', noCache: true }
+        meta: { title: 'orderList', icon: 'el-icon-goods', noCache: true }
       },
       {
-        path: 'detail/:orderId',
-        component: () => import('@/views/order/OrderDetail'),
-        name: 'OrderDetail',
-        hidden: true
+        path: 'item',
+        component: () => import('@/views/order/OrderItem'),
+        name: 'OrderItem',
+        meta: { title: 'orderItem', icon: 'el-icon-goods', noCache: true }
       }
     ]
   },
