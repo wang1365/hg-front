@@ -2,7 +2,7 @@
   <div class="main" >
     <AreaDialog ref="areaDialog" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="createArea">新增</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="addArea">新增</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" border stripe highlight-current-row>
@@ -48,7 +48,7 @@ export default {
     showAreaDialog(data, action) {
       this.$refs['areaDialog'].show(data, action)
     },
-    createArea() {
+    addArea() {
       this.showAreaDialog(null, 'create')
     },
     showArea(area) {

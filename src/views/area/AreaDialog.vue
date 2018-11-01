@@ -34,7 +34,7 @@
       </el-col>
     </el-row>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
+      <el-button @click="visible=false">取消</el-button>
       <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSave('form')">确定</el-button>
     </div>
   </el-dialog>
@@ -43,7 +43,7 @@
 <script>
 import vue from 'vue'
 import BMap from 'BMap'
-import { updateArea } from '@/api/area'
+import * as api from '@/api/area'
 import CompanyOption from './components/CompanyOption'
 import PersonOption from './components/PersonOption'
 
@@ -81,10 +81,9 @@ export default {
         enabled: [{ required: true, message: '请选择是否启用', trigger: 'blur' }],
         chargeOrg: [{ required: true, message: '请选择所属机构', trigger: 'blur' }]
       },
-      orgs: []
+      orgs: [],
+      action: ''
     }
-  },
-  watch: {
   },
   created() {
     this.area = this.emptyArea
@@ -103,6 +102,7 @@ export default {
       })
     },
     show(area, action) {
+      this.action = action
       this.visible = true
       this.title = (action === 'create') ? '新增片区' : ((action === 'show') ? '详情' : '编辑片区')
       this.disabled = (action === 'show')
@@ -125,10 +125,17 @@ export default {
         if (!valid) {
           return false
         }
-        updateArea(this.area).then((response) => {
-          this.$message({ message: `修改成功`, type: 'success' })
-          this.visible = false
-        })
+        if (this.action === 'edit') {
+          api.updateArea(this.area).then((response) => {
+            this.$message({ message: `修改成功`, type: 'success' })
+            this.visible = false
+          })
+        } else if (this.action === 'create') {
+          api.addArea(this.area).then((response) => {
+            this.$message({ message: '新增片区成功', type: 'success' })
+            this.visible = false
+          })
+        }
       })
     },
     handleCompanyChange(value) {

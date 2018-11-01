@@ -15,3 +15,11 @@ export function updateArea(data) {
     data: data
   })
 }
+
+export function addArea(area) {
+  return request({
+    url: '/web/area/addArea',
+    method: 'post',
+    data: area
+  })
+}
