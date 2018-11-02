@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-button style="width:100%" @click="selectPerson()">{{ owner ? owner : '单击选择负责人' }}</el-button>
+    <el-button style="width:100%" @click="selectPerson()">{{ head ? head : '单击选择负责人' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择负责人">
-      <el-radio-group v-model="ownerName">
+      <el-radio-group v-model="headName">
         <el-radio v-for="item in items" :label="item.name" :key="item.id" border>{{ item.name }}</el-radio>
       </el-radio-group>
       <div slot="footer" class="dialog-footer">
@@ -23,7 +23,7 @@ export default {
       type: String,
       default: ''
     },
-    owner: {
+    head: {
       type: String,
       default: ''
     }
@@ -32,22 +32,21 @@ export default {
     return {
       visible: false,
       items: [],
-      ownerName: this.owner
+      headId: null,
+      headName: this.head
     }
   },
   methods: {
     selectPerson() {
       this.visible = true
-      // this.companyName = this.name
       getPersonListByCompany(this.companyName).then((response) => {
         this.items = response.data.data
-        console.log(this.items)
       })
     },
     updatePersonModel(update) {
       this.visible = false
       if (update) {
-        this.$emit('person-change', this.ownerName)
+        this.$emit('change', { id: this.headId, name: this.headName })
       }
     }
   }

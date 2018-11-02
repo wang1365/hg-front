@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-button style="width:100%" @click="selectCompany()">{{ name ? name : '单击选择所属机构' }}</el-button>
+    <el-button style="width:100%" @click="selectCompany()">{{ company && company.name ? company.name : '单击选择所属机构' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择机构">
       <el-radio-group v-model="companyName">
-        <el-radio v-for="item in items" :label="item.name" :key="item.id" border>{{ item.name }}</el-radio>
+        <el-radio v-for="item in items" :label="item.name" :key="item.id" border @change="handleChange(item.id, item.name)">{{ item.name }}</el-radio>
       </el-radio-group>
       <div slot="footer" class="dialog-footer">
         <el-button type="success" size="small" @click="updateCompanyModel(true)">确定</el-button>
@@ -19,19 +19,24 @@ import { getAllCompany } from '@/api/company'
 export default {
   name: 'CompanyOption',
   props: {
-    name: {
-      type: String,
-      default: ''
+    company: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
       visible: false,
       items: [],
-      companyName: this.name
+      companyId: this.company.id,
+      companyName: this.company.name
     }
   },
   methods: {
+    handleChange(id, name) {
+      this.companyId = id
+      this.companyName = name
+    },
     selectCompany() {
       this.visible = true
       getAllCompany().then((response) => {
@@ -41,7 +46,7 @@ export default {
     updateCompanyModel(update) {
       this.visible = false
       if (update) {
-        this.$emit('company-change', this.companyName)
+        this.$emit('change', { id: this.companyId, name: this.companyName })
       }
     }
   }

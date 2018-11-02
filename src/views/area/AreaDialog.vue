@@ -11,11 +11,11 @@
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
           </el-form-item>
-          <el-form-item label="所属机构：" prop="chargeOrg">
-            <CompanyOption :name="area.chargeOrg" @company-change="handleCompanyChange" />
+          <el-form-item label="所属机构：" prop="companyName">
+            <CompanyOption :company="{id: area.companyId, name: area.companyName }" @change="handleCompanyChange" />
           </el-form-item>
-          <el-form-item label="负责人：" prop="chargeOwner">
-            <PersonOption :company-name="area.chargeOrg" :owner="area.chargeOwner" @person-change="handlePersonChange" />
+          <el-form-item label="负责人：" prop="headName">
+            <PersonOption :company-name="area.companyName" :head="area.headName" @change="handleHeadChange" />
           </el-form-item>
           <el-form-item label="详细地址：" prop="address">
             <el-input :disabled="disabled" v-model="area.address" />
@@ -69,8 +69,11 @@ export default {
       emptyArea: {
         name: null,
         enabled: null,
-        chargeOrg: null,
-        chargeOwner: null,
+        companyId: null,
+        companyName: null,
+        headId: null,
+        headName: null,
+        headPhone: null,
         address: null,
         longitude: null,
         latitude: null,
@@ -79,7 +82,7 @@ export default {
       rules: {
         name: [{ required: true, message: '请输入片区名称', trigger: 'blur' }],
         enabled: [{ required: true, message: '请选择是否启用', trigger: 'blur' }],
-        chargeOrg: [{ required: true, message: '请选择所属机构', trigger: 'blur' }]
+        companyName: [{ required: true, message: '请选择所属机构', trigger: 'blur' }]
       },
       orgs: [],
       action: ''
@@ -139,10 +142,11 @@ export default {
       })
     },
     handleCompanyChange(value) {
-      this.area.chargeOrg = value
+      this.area.companyId = value.id
+      this.area.companyName = value.name
     },
-    handlePersonChange(value) {
-      this.area.chargeOwner = value
+    handleHeadChange(value) {
+      this.area.headName = value
     }
   }
 }

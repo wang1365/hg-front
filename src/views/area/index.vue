@@ -11,9 +11,9 @@
         <el-table-column prop="enabled" label="启用与否" width="220">
           <template slot-scope="scope">{{ scope.row.enabled ? '已启用' : '已禁用' }}</template>
         </el-table-column>
-        <el-table-column prop="chargeOrg" label="所属机构" />
-        <el-table-column prop="chargeOwner" label="负责人姓名" width="220" />
-        <el-table-column prop="ownerPhone" label="负责人手机号码" width="220" />
+        <el-table-column prop="companyName" label="所属机构" />
+        <el-table-column prop="headName" label="负责人姓名" width="220" />
+        <el-table-column prop="headPhone" label="负责人手机号码" width="220" />
         <el-table-column label="操作" width="200" >
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="showArea(scope.row)">详情</el-button>
