@@ -5,12 +5,12 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="name" label="片区名称" width="220" />
-        <el-table-column label="操作" width="200" >
+        <el-table-column prop="id" label="ID" align="center" />
+        <el-table-column prop="name" label="片区名称" align="center" />
+        <el-table-column label="操作" align="center" >
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="showArea(scope.row)">详情</el-button>
-            <el-button size="mini" type="warning" @click="editArea(scope.row)">编辑</el-button>
+            <el-button size="mini" type="primary" @click="editArea(scope.row)">编辑</el-button>
           </template>
         </el-table-column>
       </el-table>
