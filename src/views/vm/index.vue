@@ -33,15 +33,20 @@
         </el-table-column>
       </el-table>
     </el-row>
+
+    <qr-code-dialog ref="qrcode" />
+
   </div>
 </template>
 
 <script>
 import * as api from '@/api/vm'
+import QrCodeDialog from './components/QrCodeDialog'
 
 export default {
   name: 'Vm',
   components: {
+    QrCodeDialog
   },
   data() {
     return {
@@ -57,8 +62,8 @@ export default {
         this.items = response.data.data
       })
     },
-    showQrCode(code) {
-      console.log(code)
+    showQrCode(machineCode) {
+      this.$refs['qrcode'].show(machineCode)
     },
     enable(machine) {
       api.enableVendingMachine(machine.id, !machine.enabled).then(response => {
