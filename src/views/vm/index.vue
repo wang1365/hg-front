@@ -19,8 +19,16 @@
         <el-table-column prop="distributionName" label="配送人员" align="center" />
         <el-table-column label="操作" align="center" >
           <template slot-scope="scope">
-            <el-button size="mini" type="warning" @click="showArea(scope.row)">详情</el-button>
-            <el-button size="mini" type="primary" @click="editArea(scope.row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="showQrCode(scope.row.code)">二维码</el-button>
+            <el-button size="mini" type="text" @click="enable(scope.row)">{{ scope.row.enabled ? "禁用" : "启用" }}</el-button>
+            <el-dropdown>
+              <el-button size="mini" type="text">操作<i class="el-icon-arrow-down el-icon--right" /></el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>编辑</el-dropdown-item>
+                <el-dropdown-item>售货柜详情</el-dropdown-item>
+                <el-dropdown-item>库存商品详情</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -29,7 +37,7 @@
 </template>
 
 <script>
-import { getVms } from '@/api/vm'
+import * as api from '@/api/vm'
 
 export default {
   name: 'Vm',
@@ -45,8 +53,18 @@ export default {
   },
   methods: {
     refresh() {
-      getVms().then(response => {
+      api.getVms().then(response => {
         this.items = response.data.data
+      })
+    },
+    showQrCode(code) {
+      console.log(code)
+    },
+    enable(machine) {
+      api.enableVendingMachine(machine.id, !machine.enabled).then(response => {
+        if (response.data) {
+          machine.enabled = !machine.enabled
+        }
       })
     }
   }

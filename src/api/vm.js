@@ -8,6 +8,14 @@ export function getVms(params) {
   })
 }
 
+export function enableVendingMachine(machineId, enabled) {
+  return request({
+    url: `/web/vm/${machineId}/enable`,
+    method: 'post',
+    params: { enabled }
+  })
+}
+
 export function updateVm(data) {
   return request({
     url: '/web/vm/updateVm',
