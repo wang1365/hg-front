@@ -87,6 +87,20 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/vm',
+    component: Layout,
+    alwaysShow: true,
+    meta: { title: 'vm', icon: 'vm', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/vm/index'),
+        name: 'VM',
+        meta: { title: 'vms', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/goods',
     component: Layout,
     meta: {

@@ -2,6 +2,8 @@ export default {
   route: {
     dashboard: 'Dashboard',
     area: 'Area',
+    vm: 'Vending Machine',
+    vms: 'Vending Machine System',
     introduction: 'Introduction',
     documentation: 'Documentation',
     guide: 'Guide',

@@ -2,6 +2,8 @@ export default {
   route: {
     dashboard: '首页',
     area: '片区',
+    vm: '售货柜',
+    vms: '售货柜管理',
     introduction: '简述',
     documentation: '文档',
     guide: '引导页',
