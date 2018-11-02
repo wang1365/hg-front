@@ -146,7 +146,8 @@ export default {
       this.area.companyName = value.name
     },
     handleHeadChange(value) {
-      this.area.headName = value
+      this.area.headName = value.name
+      this.area.headId = value.id
     }
   }
 }

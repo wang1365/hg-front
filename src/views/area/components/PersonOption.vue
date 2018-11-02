@@ -3,7 +3,7 @@
     <el-button style="width:100%" @click="selectPerson()">{{ head ? head : '单击选择负责人' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择负责人">
       <el-radio-group v-model="headName">
-        <el-radio v-for="item in items" :label="item.name" :key="item.id" border>{{ item.name }}</el-radio>
+        <el-radio v-for="item in items" :label="item.name" :key="item.id" border @change="handleChange(item.id, item.name)">{{ item.name }}</el-radio>
       </el-radio-group>
       <div slot="footer" class="dialog-footer">
         <el-button type="success" size="small" @click="updatePersonModel(true)">确定</el-button>
@@ -37,6 +37,10 @@ export default {
     }
   },
   methods: {
+    handleChange(id, name) {
+      this.headId = id
+      this.headName = name
+    },
     selectPerson() {
       this.visible = true
       getPersonListByCompany(this.companyName).then((response) => {
