@@ -6,7 +6,17 @@
     <el-row class="table">
       <el-table :data="items" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" align="center" />
-        <el-table-column prop="name" label="片区名称" align="center" />
+        <el-table-column prop="code" label="售货柜编号" align="center" />
+        <el-table-column prop="deviceMode" label="设备型号" align="center" />
+        <el-table-column prop="enabled" label="启用与否" align="center">
+          <template slot-scope="scope">{{ scope.row.enabled ? '已启用' : '已禁用' }}</template>
+        </el-table-column>
+        <el-table-column prop="run" label="运行状态" align="center">
+          <template slot-scope="scope">{{ scope.row.run ? '在线' : '离线' }}</template>
+        </el-table-column>
+        <el-table-column prop="areaName" label="所属片区" align="center" />
+        <el-table-column prop="headName" label="负责人" align="center" />
+        <el-table-column prop="distributionName" label="配送人员" align="center" />
         <el-table-column label="操作" align="center" >
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="showArea(scope.row)">详情</el-button>
@@ -19,6 +29,7 @@
 </template>
 
 <script>
+import { getVms } from '@/api/vm'
 
 export default {
   name: 'Vm',
@@ -30,8 +41,14 @@ export default {
     }
   },
   created() {
+    this.refresh()
   },
   methods: {
+    refresh() {
+      getVms().then(response => {
+        this.items = response.data.data
+      })
+    }
   }
 }
 </script>
