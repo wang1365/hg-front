@@ -39,6 +39,7 @@ export default {
     },
     selectCompany() {
       this.visible = true
+      this.companyName = this.company.name
       getAllCompany().then((response) => {
         this.items = response.data.data
       })

@@ -98,6 +98,7 @@ export default {
       const that = this
       vue.nextTick(_ => {
         that.map = new BMap.Map('map')
+        that.map.enableScrollWheelZoom()
         that.mapGeocoder = new BMap.Geocoder()
         const point = new BMap.Point(that.area.longitude || 116.404, that.area.latitude || 39.915)
         that.map.centerAndZoom(point, 14)
@@ -139,6 +140,7 @@ export default {
             this.visible = false
           })
         }
+        this.$emit('change')
       })
     },
     handleCompanyChange(value) {
