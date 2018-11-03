@@ -52,10 +52,10 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
           // const data = response.data
-          commit('SET_TOKEN', response.headers['cookie-bearer'])
+          const token = response.data.data.token
+          commit('SET_TOKEN', token)
           console.log(response)
-          console.log(response)
-          setToken(response.headers['cookie-bearer'])
+          setToken(token)
           resolve()
         }).catch(error => {
           reject(error)
