@@ -1,7 +1,7 @@
 <template>
   <div class="main" >
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" >新增</el-button>
+      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn" >新增</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" border stripe highlight-current-row>
@@ -20,7 +20,15 @@
         <el-table-column label="操作" align="center" >
           <template slot-scope="scope">
             <el-button size="mini" type="text" @click="showQrCode(scope.row.code)">二维码</el-button>
-            <el-button size="mini" type="text" @click="enable(scope.row)">{{ scope.row.enabled ? "禁用" : "启用" }}</el-button>
+            <el-popover :value="scope.row.enableVisible" placement="top" width="160">
+              <i class="el-icon-warning" style="color:#e6a23c"/>
+              <span>确认{{ scope.row.enabled ? '禁用' : '启用' }}售货柜{{ scope.row.code }}?</span>
+              <div style="text-align: right; margin: 0">
+                <el-button size="mini" plain class="mini" @click="scope.row.enableVisible=false">取消</el-button>
+                <el-button type="primary" size="mini" class="mini" @click="enable(scope.row, true)">确定</el-button>
+              </div>
+              <el-button slot="reference" type="text" @click="scope.row.enableVisible=true">{{ scope.row.enabled ? "禁用" : "启用" }}</el-button>
+            </el-popover>
             <el-dropdown>
               <el-button size="mini" type="text">操作<i class="el-icon-arrow-down el-icon--right" /></el-button>
               <el-dropdown-menu slot="dropdown">
@@ -59,18 +67,24 @@ export default {
   methods: {
     refresh() {
       api.getVms().then(response => {
-        this.items = response.data.data
+        this.items = response.data.data.map(item => {
+          item.enableVisible = false
+          return item
+        })
       })
     },
     showQrCode(machineCode) {
       this.$refs['qrcode'].show(machineCode)
     },
-    enable(machine) {
-      api.enableVendingMachine(machine.id, !machine.enabled).then(response => {
-        if (response.data) {
-          machine.enabled = !machine.enabled
-        }
-      })
+    enable(machine, ok) {
+      machine.enableVisible = false
+      if (ok) {
+        api.enableVendingMachine(machine.id, !machine.enabled).then(response => {
+          if (response.data) {
+            machine.enabled = !machine.enabled
+          }
+        })
+      }
     }
   }
 }
@@ -85,5 +99,8 @@ export default {
   }
   .el-col {
     border-radius: 4px;
+  }
+  .mini {
+    padding: 4px 10px;
   }
 </style>
