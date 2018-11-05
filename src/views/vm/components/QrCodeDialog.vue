@@ -26,12 +26,11 @@ export default {
     show(machineCode) {
       this.visible = true
       this.$nextTick(() => {
-        console.log(machineCode)
         if (this.qrCode === null) {
           this.qrCode = new QRCode('qrcode', {
             width: 180,
             height: 180,
-            text: machineCode, // 二维码内容
+            text: machineCode,
             // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
             background: '#f0f',
             foreground: '#ff0'

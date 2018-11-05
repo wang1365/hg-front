@@ -6,6 +6,7 @@
     <el-row class="table">
       <el-table :data="items" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" align="center" />
+        <el-table-column prop="name" label="售货柜名称" align="center" />
         <el-table-column prop="code" label="售货柜编号" align="center" />
         <el-table-column prop="deviceMode" label="设备型号" align="center" />
         <el-table-column prop="enabled" label="启用与否" align="center">
@@ -32,9 +33,9 @@
             <el-dropdown>
               <el-button size="mini" type="text">操作<i class="el-icon-arrow-down el-icon--right" /></el-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>编辑</el-dropdown-item>
-                <el-dropdown-item>售货柜详情</el-dropdown-item>
-                <el-dropdown-item>库存商品详情</el-dropdown-item>
+                <el-dropdown-item @click.native="editCommandHandler(scope.row)">编辑</el-dropdown-item>
+                <el-dropdown-item @click.native="showCommandHandler(scope.row)">售货柜详情</el-dropdown-item>
+                <el-dropdown-item @click.native="showGoodsHandler">库存商品详情</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -43,6 +44,7 @@
     </el-row>
 
     <qr-code-dialog ref="qrcode" />
+    <vending-machine-dialog ref="vm" @change="handleVendingMachineChange" />
 
   </div>
 </template>
@@ -50,11 +52,12 @@
 <script>
 import * as api from '@/api/vm'
 import QrCodeDialog from './components/QrCodeDialog'
+import VendingMachineDialog from './components/VendingMachineDialog'
 
 export default {
   name: 'Vm',
   components: {
-    QrCodeDialog
+    QrCodeDialog, VendingMachineDialog
   },
   data() {
     return {
@@ -85,6 +88,21 @@ export default {
           }
         })
       }
+    },
+    showGoodsHandler(vm) {
+      console.log(vm)
+    },
+    editCommandHandler(vm) {
+      this.showVmDialog(vm, 'edit')
+    },
+    showCommandHandler(vm) {
+      this.showVmDialog(vm, 'show')
+    },
+    showVmDialog(vm, mode) {
+      this.$refs['vm'].show(vm, mode)
+    },
+    handleVendingMachineChange() {
+      this.refresh()
     }
   }
 }
