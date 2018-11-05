@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button style="width:100%" @click="selectCompany()">{{ company && company.name ? company.name : '单击选择所属机构' }}</el-button>
+    <el-button :disabled="disabled" style="width:100%" @click="selectCompany()">{{ company && company.name ? company.name : '单击选择所属机构' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择机构">
       <el-radio-group v-model="companyName">
         <el-radio v-for="item in items" :label="item.name" :key="item.id" border @change="handleChange(item.id, item.name)">{{ item.name }}</el-radio>
@@ -19,6 +19,10 @@ import { getAllCompany } from '@/api/company'
 export default {
   name: 'CompanyOption',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     company: {
       type: Object,
       default: () => {}

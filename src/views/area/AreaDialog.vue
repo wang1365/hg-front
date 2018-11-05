@@ -12,10 +12,10 @@
             </el-select>
           </el-form-item>
           <el-form-item label="所属机构：" prop="companyName">
-            <CompanyOption :company="{id: area.companyId, name: area.companyName }" @change="handleCompanyChange" />
+            <CompanyOption :company="{id: area.companyId, name: area.companyName }" :disabled="disabled" @change="handleCompanyChange" />
           </el-form-item>
           <el-form-item label="负责人：" prop="headName">
-            <PersonOption :company-name="area.companyName" :head="area.headName" @change="handleHeadChange" />
+            <PersonOption :company-name="area.companyName" :head="area.headName" :disabled="disabled" @change="handleHeadChange" />
           </el-form-item>
           <el-form-item label="详细地址：" prop="address">
             <el-input :disabled="disabled" v-model="area.address" />

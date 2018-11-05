@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button style="width:100%" @click="selectPerson()">{{ head ? head : '单击选择负责人' }}</el-button>
+    <el-button :disabled="disabled" style="width:100%" @click="selectPerson()">{{ head ? head : '单击选择负责人' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择负责人">
       <el-radio-group v-model="headName">
         <el-radio v-for="item in items" :label="item.name" :key="item.id" border @change="handleChange(item.id, item.name)">{{ item.name }}</el-radio>
@@ -26,6 +26,10 @@ export default {
     head: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
