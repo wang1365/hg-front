@@ -93,7 +93,7 @@ export default {
       console.log(vm)
     },
     editCommandHandler(vm) {
-      this.showVmDialog(vm, 'edit')
+      this.showVmDialog(Object.assign({}, vm), 'edit')
     },
     showCommandHandler(vm) {
       this.showVmDialog(vm, 'show')

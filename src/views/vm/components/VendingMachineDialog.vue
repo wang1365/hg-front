@@ -12,7 +12,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="所属片区：" prop="areaName">
-            <el-input :disabled="disabled" v-model="vm.areaName" />
+            <AreaOption :area="{id: vm.areaId, name: vm.areaName }" :disabled="disabled" @change="hangleAreaChange" />
           </el-form-item>
           <el-form-item label="负责人：" prop="headName">
             <el-input :disabled="disabled" v-model="vm.headName" />
@@ -47,11 +47,12 @@
 import vue from 'vue'
 import BMap from 'BMap'
 import * as api from '@/api/vm'
+import AreaOption from './AreaOption'
 
 export default {
   name: 'VendingMachineDialog',
   components: {
-    BMap
+    BMap, AreaOption
   },
   props: {
   },
@@ -108,6 +109,10 @@ export default {
       this.mapGeocoder.getLocation(option.point, (rs) => {
         that.vm.address = rs.address
       })
+    },
+    hangleAreaChange(area) {
+      this.vm.areaId = area.id
+      this.vm.areaName = area.name
     },
     onSave(form) {
       this.$refs[form].validate((valid) => {
