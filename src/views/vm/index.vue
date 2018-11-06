@@ -1,7 +1,7 @@
 <template>
   <div class="main" >
     <el-row>
-      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn" >新增</el-button>
+      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn">新增</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" border stripe highlight-current-row>

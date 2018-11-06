@@ -135,6 +135,25 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/operation',
+    component: Layout,
+    meta: { title: 'operation', icon: 'operation' },
+    children: [
+      {
+        path: 'stockin',
+        component: () => import('@/views/operation/StockIn'),
+        name: 'StockIn',
+        meta: { title: 'stockIn', noCache: true }
+      },
+      {
+        path: 'stockout',
+        component: () => import('@/views/operation/StockOut'),
+        name: 'StockOut',
+        meta: { title: 'stockOut', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/market',
     component: Layout,
     alwaysShow: true,
