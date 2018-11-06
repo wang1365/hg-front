@@ -102,7 +102,13 @@ export default {
         that.mapGeocoder = new BMap.Geocoder()
         const point = new BMap.Point(that.area.longitude || 116.404, that.area.latitude || 39.915)
         that.map.centerAndZoom(point, 14)
-        that.map.addEventListener('click', that.mapClickHandler)
+        if (that.area.longitude && that.area.latitude) {
+          const marker = new BMap.Marker(point)
+          that.map.addOverlay(marker)
+        }
+        if (!this.disabled) {
+          that.map.addEventListener('click', that.mapClickHandler)
+        }
       })
     },
     show(area, action) {

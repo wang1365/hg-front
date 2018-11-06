@@ -89,6 +89,10 @@ export default {
         that.mapGeocoder = new BMap.Geocoder()
         const point = new BMap.Point(that.vm.longitude || 116.404, that.vm.latitude || 39.915)
         that.map.centerAndZoom(point, 14)
+        if (that.area.longitude && that.area.latitude) {
+          const marker = new BMap.Marker(point)
+          that.map.addOverlay(marker)
+        }
         if (!that.disabled) {
           that.map.addEventListener('click', that.mapClickHandler)
         }
