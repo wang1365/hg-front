@@ -12,13 +12,13 @@
             </el-select>
           </el-form-item>
           <el-form-item label="所属片区：" prop="areaName">
-            <AreaOption :area="{id: vm.areaId, name: vm.areaName }" :disabled="disabled" @change="hangleAreaChange" />
+            <area-option :area="{id: vm.areaId, name: vm.areaName}" :disabled="disabled" @change="handleAreaChange" />
           </el-form-item>
           <el-form-item label="负责人：" prop="headName">
-            <el-input :disabled="disabled" v-model="vm.headName" />
+            <person-option :person="{id: vm.headId, name: vm.headName, type: 4}" :disabled="disabled" @change="handleHeadChange" />
           </el-form-item>
           <el-form-item label="配送人：" prop="distributionName">
-            <el-input :disabled="disabled" v-model="vm.distributionName" />
+            <person-option :person="{id: vm.distributionId, name: vm.distributionName, type: 5}" :disabled="disabled" @change="handleDistributionChange" />
           </el-form-item>
           <el-form-item label="详细地址：" prop="address">
             <el-input :disabled="disabled" v-model="vm.address" />
@@ -48,11 +48,12 @@ import vue from 'vue'
 import BMap from 'BMap'
 import * as api from '@/api/vm'
 import AreaOption from './AreaOption'
+import PersonOption from './PersonOption'
 
 export default {
   name: 'VendingMachineDialog',
   components: {
-    BMap, AreaOption
+    BMap, AreaOption, PersonOption
   },
   props: {
   },
@@ -110,9 +111,17 @@ export default {
         that.vm.address = rs.address
       })
     },
-    hangleAreaChange(area) {
+    handleAreaChange(area) {
       this.vm.areaId = area.id
       this.vm.areaName = area.name
+    },
+    handleHeadChange(person) {
+      this.vm.headId = person.id
+      this.vm.headName = person.name
+    },
+    handleDistributionChange(person) {
+      this.vm.distributionId = person.id
+      this.vm.distributionName = person.name
     },
     onSave(form) {
       this.$refs[form].validate((valid) => {
