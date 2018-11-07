@@ -47,7 +47,7 @@
 import vue from 'vue'
 import BMap from 'BMap'
 import * as api from '@/api/vm'
-import AreaOption from './AreaOption'
+import AreaOption from '@/views/components/AreaOption'
 import PersonOption from './PersonOption'
 
 export default {
