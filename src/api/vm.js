@@ -8,6 +8,14 @@ export function getVms(params) {
   })
 }
 
+export function getVmsByAreaId(areaId) {
+  return request({
+    url: '/web/vm/getVmsByAreaId',
+    method: 'get',
+    params: { areaId }
+  })
+}
+
 export function enableVendingMachine(machineId, enabled) {
   return request({
     url: `/web/vm/${machineId}/enable`,
