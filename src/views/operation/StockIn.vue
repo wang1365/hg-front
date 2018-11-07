@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-row>
-      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn">申请入库</el-button>
+      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn" @click="stockDialogVisible=true">申请入库</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
@@ -24,17 +24,22 @@
         </el-table-column>
       </el-table>
     </el-row>
+    <stock-in-dialog ref="stockDialog" :visible="stockDialogVisible" />
   </div>
 </template>
 
 <script>
+import StockInDialog from './components/StockInDialog'
+
 export default {
   name: 'StockIn',
   components: {
+    StockInDialog
   },
   data() {
     return {
-      items: []
+      items: [],
+      stockDialogVisible: false
     }
   },
   methods: {
