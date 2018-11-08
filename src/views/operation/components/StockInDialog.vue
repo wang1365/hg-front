@@ -14,10 +14,14 @@
     </el-form>
     <el-button :disabled="btnDisabled" class="addBtn">新增</el-button>
     <el-table :data="items" border stripe highlight-current-row>
-      <el-table-column prop="id" align="center" label="商品" />
-      <el-table-column prop="name" align="center" label="商品条码" />
-      <el-table-column prop="headName" align="center" label="数量" />
-      <el-table-column prop="headPhone" align="center" label="操作">
+      <el-table-column prop="name" align="center" label="商品">
+        <template slot-scope="scope">
+          <el-autocomplete v-model="scope.row.name" :fetch-suggestions="searchGoods" clearable class="inline-input" placeholder="输入商品名称进行搜索" @select="selectGoods" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="barCode" align="center" label="商品条码" />
+      <el-table-column prop="number" align="center" label="数量" />
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button type="text">删除</el-button>
         </template>
@@ -31,6 +35,7 @@
 </template>
 
 <script>
+import { getGoodsList } from '@/api/goods'
 import AreaOption from '@/views/components/AreaOption'
 import MachineOption from '@/views/components/MachineOption'
 
@@ -55,7 +60,8 @@ export default {
       rules: {
         areaName: [{ required: true, message: '请选择片区!', trigger: 'blur' }],
         vmName: [{ required: true, message: '请选择售货柜!', trigger: 'blur' }]
-      }
+      },
+      goods: []
     }
   },
   mounted() {},
@@ -69,6 +75,24 @@ export default {
     changeCurrentMachine(machine) {
       this.machine = machine
       this.btnDisabled = false
+      this.items.push(this.createNewGoods())
+      getGoodsList().then(response => {
+        this.goods = response.data.data.map(good => {
+          good.value = good.name
+          return good
+        })
+      })
+    },
+    createNewGoods() {
+      return { name: '', barCode: '', number: 1 }
+    },
+    searchGoods(str, cb) {
+      const results = str ? this.goods.filter((state) => {
+        return state.value.includes(str)
+      }) : this.goods
+      cb(results)
+    },
+    selectGoods(item) {
     }
   }
 }
