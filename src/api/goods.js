@@ -140,3 +140,11 @@ export function deleteGoodsLabel(id) {
   })
 }
 
+/** 商品入库/出库  */
+export function instock(data) {
+  return request({
+    url: '/web/goods/instock',
+    method: 'post',
+    data: data
+  })
+}

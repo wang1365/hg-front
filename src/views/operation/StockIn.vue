@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-row>
-      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn" @click="stockDialogVisible=true">申请入库</el-button>
+      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn" @click="openStockInDialog">申请入库</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
@@ -24,7 +24,7 @@
         </el-table-column>
       </el-table>
     </el-row>
-    <stock-in-dialog ref="stockDialog" :visible="stockDialogVisible" />
+    <stock-in-dialog ref="stockDialog" @change="applyStockIn" />
   </div>
 </template>
 
@@ -38,11 +38,16 @@ export default {
   },
   data() {
     return {
-      items: [],
-      stockDialogVisible: false
+      items: []
     }
   },
   methods: {
+    openStockInDialog() {
+      this.$refs['stockDialog'].show()
+    },
+    applyStockIn() {
+      console.log('success')
+    }
   }
 }
 </script>

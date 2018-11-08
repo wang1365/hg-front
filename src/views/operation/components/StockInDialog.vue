@@ -12,18 +12,22 @@
         </el-col>
       </el-form-item>
     </el-form>
-    <el-button :disabled="btnDisabled" class="addBtn">新增</el-button>
+    <el-button :disabled="btnDisabled" class="addBtn" @click="addGoods">新增</el-button>
     <el-table :data="items" border stripe highlight-current-row>
       <el-table-column prop="name" align="center" label="商品">
         <template slot-scope="scope">
-          <el-autocomplete v-model="scope.row.name" :fetch-suggestions="searchGoods" clearable class="inline-input" placeholder="输入商品名称进行搜索" @select="selectGoods" />
+          <el-autocomplete v-model="scope.row.name" :fetch-suggestions="searchGoods" clearable class="inline-input" placeholder="输入商品名称进行搜索" @select="selectGoods($event, scope)" />
         </template>
       </el-table-column>
       <el-table-column prop="barCode" align="center" label="商品条码" />
-      <el-table-column prop="number" align="center" label="数量" />
+      <el-table-column prop="number" align="center" label="数量">
+        <template slot-scope="scope">
+          <el-input-number v-model="scope.row.number" :min="1" size="mini" controls-position="right" />
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <el-button type="text">删除</el-button>
+          <el-button type="text" @click="removeGoods(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -35,7 +39,7 @@
 </template>
 
 <script>
-import { getGoodsList } from '@/api/goods'
+import { getGoodsList, instock } from '@/api/goods'
 import AreaOption from '@/views/components/AreaOption'
 import MachineOption from '@/views/components/MachineOption'
 
@@ -44,15 +48,10 @@ export default {
   components: {
     AreaOption, MachineOption
   },
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
       items: [],
+      visible: false,
       btnDisabled: true,
       vmDisabled: true,
       area: {},
@@ -66,7 +65,8 @@ export default {
   },
   mounted() {},
   methods: {
-    applyStockIn(form) {
+    show() {
+      this.visible = true
     },
     handleAreaChange(area) {
       this.area = area
@@ -84,7 +84,7 @@ export default {
       })
     },
     createNewGoods() {
-      return { name: '', barCode: '', number: 1 }
+      return { id: -1, name: '', barCode: '', number: 1 }
     },
     searchGoods(str, cb) {
       const results = str ? this.goods.filter((state) => {
@@ -92,7 +92,29 @@ export default {
       }) : this.goods
       cb(results)
     },
-    selectGoods(item) {
+    addGoods() {
+      this.items.push(this.createNewGoods())
+    },
+    selectGoods(event, scope) {
+      this.items[scope.$index].id = event.id
+      this.items[scope.$index].barCode = event.barCode
+    },
+    removeGoods(index) {
+      this.items.splice(index, 1)
+    },
+    applyStockIn() {
+      instock({
+        areaId: this.area.id,
+        vmId: this.machine.id,
+        goods: this.items.reduce((map, obj) => {
+          map[obj.barCode] = obj.number
+          return map
+        }, {})
+      }).then((response) => {
+        this.$message({ message: `商品入库申请成功`, type: 'success' })
+        this.visible = false
+        this.$emit('change')
+      })
     }
   }
 }
