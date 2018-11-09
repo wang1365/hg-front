@@ -44,20 +44,20 @@
     </el-row>
 
     <qr-code-dialog ref="qrcode" />
-    <vending-machine-dialog ref="vm" @change="handleVendingMachineChange" />
+    <container-dialog ref="container" @change="handleContainerChange" />
 
   </div>
 </template>
 
 <script>
-import * as api from '@/api/vm'
+import * as api from '@/api/container'
 import QrCodeDialog from './components/QrCodeDialog'
-import VendingMachineDialog from './components/VendingMachineDialog'
+import ContainerDialog from './components/ContainerDialog'
 
 export default {
-  name: 'Vm',
+  name: 'Container',
   components: {
-    QrCodeDialog, VendingMachineDialog
+    QrCodeDialog, ContainerDialog
   },
   data() {
     return {
@@ -69,39 +69,39 @@ export default {
   },
   methods: {
     refresh() {
-      api.getVms().then(response => {
+      api.getContainers().then(response => {
         this.items = response.data.data.map(item => {
           item.enableVisible = false
           return item
         })
       })
     },
-    showQrCode(machineCode) {
-      this.$refs['qrcode'].show(machineCode)
+    showQrCode(containerCode) {
+      this.$refs['qrcode'].show(containerCode)
     },
-    enable(machine, ok) {
-      machine.enableVisible = false
+    enable(container, ok) {
+      container.enableVisible = false
       if (ok) {
-        api.enableVendingMachine(machine.id, !machine.enabled).then(response => {
+        api.enableContainer(container.id, !container.enabled).then(response => {
           if (response.data) {
-            machine.enabled = !machine.enabled
+            container.enabled = !container.enabled
           }
         })
       }
     },
-    showGoodsHandler(vm) {
-      console.log(vm)
+    showGoodsHandler(container) {
+      console.log(container)
     },
-    editCommandHandler(vm) {
-      this.showVmDialog(Object.assign({}, vm), 'edit')
+    editCommandHandler(container) {
+      this.showContainerDialog(Object.assign({}, container), 'edit')
     },
-    showCommandHandler(vm) {
-      this.showVmDialog(vm, 'show')
+    showCommandHandler(container) {
+      this.showContainerDialog(container, 'show')
     },
-    showVmDialog(vm, mode) {
-      this.$refs['vm'].show(vm, mode)
+    showContainerDialog(container, mode) {
+      this.$refs['container'].show(container, mode)
     },
-    handleVendingMachineChange() {
+    handleContainerChange() {
       this.refresh()
     }
   }

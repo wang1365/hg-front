@@ -2,8 +2,8 @@ export default {
   route: {
     dashboard: '首页',
     area: '片区',
-    vm: '售货柜',
-    vms: '售货柜管理',
+    container: '售货柜',
+    containers: '售货柜管理',
     operation: '运营',
     stockIn: '商品入库管理',
     stockOut: '商品出库管理',

@@ -2,8 +2,8 @@ export default {
   route: {
     dashboard: 'Dashboard',
     area: 'Area',
-    vm: 'Vending Machine',
-    vms: 'Vending Machine System',
+    container: 'Container',
+    containers: 'Container System',
     operation: 'Operation',
     stockIn: 'Stock In',
     stockOut: 'Stock Out',

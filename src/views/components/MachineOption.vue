@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button :disabled="disabled" style="width:100%" @click="openVmDialog">{{ vm && vm.name ? vm.name : '单击选择售货柜' }}</el-button>
+    <el-button :disabled="disabled" style="width:100%" @click="opencontainerDialog">{{ container && container.name ? container.name : '单击选择售货柜' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择售货柜">
       <el-table :data="items" border stripe highlight-current-row @current-change="selectCurrentMachineRow">
         <el-table-column width="30">
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { getVmsByAreaId } from '@/api/vm'
+import { getContainersByAreaId } from '@/api/container'
 
 export default {
   name: 'MachineOption',
@@ -34,7 +34,7 @@ export default {
       type: Object,
       default: () => {}
     },
-    vm: {
+    container: {
       type: Object,
       default: () => {}
     }
@@ -44,31 +44,31 @@ export default {
       visible: false,
       items: [],
       radio: null,
-      vmId: null,
-      vmName: null
+      containerId: null,
+      containerName: null
     }
   },
   methods: {
-    openVmDialog() {
+    opencontainerDialog() {
       this.visible = true
-      this.vmName = this.vm.name
-      getVmsByAreaId(this.area.id).then((response) => {
+      this.containerName = this.container.name
+      getContainersByAreaId(this.area.id).then((response) => {
         this.items = response.data.data
-        this.radio = this.items.findIndex(item => item.id === this.vm.id)
+        this.radio = this.items.findIndex(item => item.id === this.container.id)
       })
     },
     selectCurrentMachineRow(currentRow) {
-      this.vmId = currentRow.id
-      this.vmName = currentRow.name
-      this.radio = this.items.findIndex(item => item.id === this.vmId)
+      this.containerId = currentRow.id
+      this.containerName = currentRow.name
+      this.radio = this.items.findIndex(item => item.id === this.containerId)
     },
     selectCurrentMachineRadio() {
-      this.vmId = this.items[this.radio].id
-      this.vmName = this.items[this.radio].name
+      this.containerId = this.items[this.radio].id
+      this.containerName = this.items[this.radio].name
     },
     saveCurrentMachine() {
       this.visible = false
-      this.$emit('change', { id: this.vmId, name: this.vmName })
+      this.$emit('change', { id: this.containerId, name: this.containerName })
     }
   }
 }
