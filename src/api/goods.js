@@ -156,3 +156,11 @@ export function getGoodsInboundList(params) {
     params: params
   })
 }
+
+export function getGoodsInboundDetail(params) {
+  return request({
+    url: '/web/goods/getGoodsInboundDetail',
+    method: 'get',
+    params: params
+  })
+}

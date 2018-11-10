@@ -8,7 +8,7 @@
       </el-form-item>
       <el-form-item label="目标售货柜：" prop="vmName">
         <el-col :span="15">
-          <machine-option :area="area" :container="machine" :disabled="containerDisabled" @change="changeCurrentMachine" />
+          <machine-option :area="area" :container="machine" :disabled="containerDisabled" @change="changeContainer" />
         </el-col>
       </el-form-item>
     </el-form>
@@ -72,7 +72,7 @@ export default {
       this.area = area
       this.containerDisabled = false
     },
-    changeCurrentMachine(machine) {
+    changeContainer(machine) {
       this.machine = machine
       this.btnDisabled = false
       this.items.push(this.createNewGoods())

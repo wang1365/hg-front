@@ -10,16 +10,16 @@
         <el-table-column prop="containerCode" label="售货柜编码" />
         <el-table-column prop="vmName" label="点位名称" />
         <el-table-column label="盘存状态" />
-        <el-table-column label="审核状态" />
-        <el-table-column label="智能方案" />
+        <el-table-column label="审核状态" value="已审核" />
+        <el-table-column label="智能方案"><template>RFID</template></el-table-column>
         <el-table-column prop="species" label="计划/实际种类" />
         <el-table-column prop="amount" label="计划/实际总数" />
         <el-table-column label="计划/实际金额" />
-        <el-table-column label="创建时间" />
+        <el-table-column prop="createTime" label="创建时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="text">商品详情</el-button>
-            <el-button size="mini" type="text">删除</el-button>
+            <el-button size="mini" type="text" @click="showInboundDetail(scope.row)">商品详情</el-button>
+            <el-button size="mini" type="text" @click="deleteInbound(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { getGoodsInboundList } from '@/api/goods'
+import { getGoodsInboundList, getGoodsInboundDetail } from '@/api/goods'
 import GoodsInboundDialog from './components/GoodsInboundDialog'
 
 export default {
@@ -56,6 +56,14 @@ export default {
     },
     applyInbound() {
       this.refresh()
+    },
+    showInboundDetail(row) {
+      getGoodsInboundDetail({ id: row.id }).then(response => {
+        console.log(response.data.data)
+      })
+    },
+    deleteInbound(row) {
+      console.log(row)
     }
   }
 }
