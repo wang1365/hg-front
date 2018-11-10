@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getGoodsList, instock } from '@/api/goods'
+import { getGoodsList, inbound } from '@/api/goods'
 import AreaOption from '@/views/components/AreaOption'
 import MachineOption from '@/views/components/MachineOption'
 
@@ -103,7 +103,7 @@ export default {
       this.items.splice(index, 1)
     },
     applyStockIn() {
-      instock({
+      inbound({
         areaId: this.area.id,
         vmId: this.machine.id,
         goods: this.items.reduce((map, obj) => {
