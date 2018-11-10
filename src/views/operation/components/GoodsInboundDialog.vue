@@ -8,7 +8,7 @@
       </el-form-item>
       <el-form-item label="目标售货柜：" prop="vmName">
         <el-col :span="15">
-          <machine-option :area="area" :vm="machine" :disabled="vmDisabled" @change="changeCurrentMachine" />
+          <machine-option :area="area" :container="machine" :disabled="containerDisabled" @change="changeCurrentMachine" />
         </el-col>
       </el-form-item>
     </el-form>
@@ -53,7 +53,7 @@ export default {
       items: [],
       visible: false,
       btnDisabled: true,
-      vmDisabled: true,
+      containerDisabled: true,
       area: {},
       machine: {},
       rules: {
@@ -70,7 +70,7 @@ export default {
     },
     handleAreaChange(area) {
       this.area = area
-      this.vmDisabled = false
+      this.containerDisabled = false
     },
     changeCurrentMachine(machine) {
       this.machine = machine
@@ -105,7 +105,8 @@ export default {
     applyStockIn() {
       inbound({
         areaId: this.area.id,
-        vmId: this.machine.id,
+        containerId: this.machine.id,
+        containerCode: this.machine.code,
         goods: this.items.reduce((map, obj) => {
           map[obj.barCode] = obj.number
           return map

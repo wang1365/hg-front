@@ -148,3 +148,11 @@ export function inbound(data) {
     data: data
   })
 }
+
+export function getGoodsInboundList(params) {
+  return request({
+    url: '/web/goods/getGoodsInboundList',
+    method: 'get',
+    params: params
+  })
+}

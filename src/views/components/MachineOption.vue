@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button :disabled="disabled" style="width:100%" @click="opencontainerDialog">{{ container && container.name ? container.name : '单击选择售货柜' }}</el-button>
+    <el-button :disabled="disabled" style="width:100%" @click="openContainerDialog">{{ container && container.name ? container.name : '单击选择售货柜' }}</el-button>
     <el-dialog :visible.sync="visible" append-to-body title="选择售货柜">
       <el-table :data="items" border stripe highlight-current-row @current-change="selectCurrentMachineRow">
         <el-table-column width="30">
@@ -45,11 +45,12 @@ export default {
       items: [],
       radio: null,
       containerId: null,
-      containerName: null
+      containerName: null,
+      containerCode: null
     }
   },
   methods: {
-    opencontainerDialog() {
+    openContainerDialog() {
       this.visible = true
       this.containerName = this.container.name
       getContainersByAreaId(this.area.id).then((response) => {
@@ -60,6 +61,7 @@ export default {
     selectCurrentMachineRow(currentRow) {
       this.containerId = currentRow.id
       this.containerName = currentRow.name
+      this.containerCode = currentRow.code
       this.radio = this.items.findIndex(item => item.id === this.containerId)
     },
     selectCurrentMachineRadio() {
@@ -68,7 +70,7 @@ export default {
     },
     saveCurrentMachine() {
       this.visible = false
-      this.$emit('change', { id: this.containerId, name: this.containerName })
+      this.$emit('change', { id: this.containerId, name: this.containerName, code: this.containerCode })
     }
   }
 }

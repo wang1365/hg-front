@@ -7,13 +7,13 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" />
         <el-table-column prop="areaName" label="片区" />
-        <el-table-column prop="vmCode" label="售货柜编码" />
+        <el-table-column prop="containerCode" label="售货柜编码" />
         <el-table-column prop="vmName" label="点位名称" />
         <el-table-column label="盘存状态" />
         <el-table-column label="审核状态" />
         <el-table-column label="智能方案" />
-        <el-table-column label="计划/实际种类" />
-        <el-table-column label="计划/实际总数" />
+        <el-table-column prop="species" label="计划/实际种类" />
+        <el-table-column prop="amount" label="计划/实际总数" />
         <el-table-column label="计划/实际金额" />
         <el-table-column label="创建时间" />
         <el-table-column label="操作">
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { getGoodsInboundList } from '@/api/goods'
 import GoodsInboundDialog from './components/GoodsInboundDialog'
 
 export default {
@@ -41,12 +42,20 @@ export default {
       items: []
     }
   },
+  created() {
+    this.refresh()
+  },
   methods: {
+    refresh() {
+      getGoodsInboundList().then(response => {
+        this.items = response.data.data
+      })
+    },
     openInboundDialog() {
       this.$refs['inboundDialog'].show()
     },
     applyInbound() {
-      console.log('success')
+      this.refresh()
     }
   }
 }
