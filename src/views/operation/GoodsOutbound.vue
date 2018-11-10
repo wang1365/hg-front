@@ -1,8 +1,6 @@
 <template>
   <div class="main">
-    <el-row>
-      <el-button type="primary" icon="el-icon-plus" size="small" class="right-btn" @click="openStockInDialog">申请入库</el-button>
-    </el-row>
+    <el-row/>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" />
@@ -12,9 +10,9 @@
         <el-table-column label="盘存状态" />
         <el-table-column label="审核状态" />
         <el-table-column label="智能方案" />
-        <el-table-column label="计划/实际种类" />
-        <el-table-column label="计划/实际总数" />
-        <el-table-column label="计划/实际金额" />
+        <el-table-column label="种类" />
+        <el-table-column label="总数" />
+        <el-table-column label="金额" />
         <el-table-column label="创建时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -24,17 +22,13 @@
         </el-table-column>
       </el-table>
     </el-row>
-    <stock-in-dialog ref="stockDialog" @change="applyStockIn" />
   </div>
 </template>
 
 <script>
-import StockInDialog from './components/StockInDialog'
-
 export default {
-  name: 'StockIn',
+  name: 'GoodsOutbound',
   components: {
-    StockInDialog
   },
   data() {
     return {
@@ -42,12 +36,6 @@ export default {
     }
   },
   methods: {
-    openStockInDialog() {
-      this.$refs['stockDialog'].show()
-    },
-    applyStockIn() {
-      console.log('success')
-    }
   }
 }
 </script>
