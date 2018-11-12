@@ -108,7 +108,7 @@ export default {
         containerId: this.machine.id,
         containerCode: this.machine.code,
         goods: this.items.reduce((map, obj) => {
-          map[obj.barCode] = obj.number
+          map[obj.id] = obj.number
           return map
         }, {})
       }).then((response) => {
