@@ -25,17 +25,19 @@
       </el-table>
     </el-row>
     <goods-inbound-dialog ref="inboundDialog" @change="applyInbound" />
+    <goods-bound-detail-dialog ref="inboundDetail" />
   </div>
 </template>
 
 <script>
-import { getGoodsInboundList, getGoodsInboundDetail } from '@/api/goods'
+import { getGoodsInboundList } from '@/api/goods'
 import GoodsInboundDialog from './components/GoodsInboundDialog'
+import GoodsBoundDetailDialog from './components/GoodsBoundDetailDialog'
 
 export default {
   name: 'GoodsInbound',
   components: {
-    GoodsInboundDialog
+    GoodsInboundDialog, GoodsBoundDetailDialog
   },
   data() {
     return {
@@ -58,9 +60,7 @@ export default {
       this.refresh()
     },
     showInboundDetail(row) {
-      getGoodsInboundDetail({ id: row.id }).then(response => {
-        console.log(response.data.data)
-      })
+      this.$refs['inboundDetail'].show(row.id, 'inbound')
     },
     deleteInbound(row) {
       console.log(row)
