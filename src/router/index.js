@@ -140,6 +140,11 @@ export const asyncRouterMap = [
     meta: { title: 'operation', icon: 'operation' },
     children: [
       {
+        path: 'goods',
+        component: () => import('@/views/operation/ContainerGoods'),
+        name: 'ContainerGoods',
+        meta: { title: 'containerGoods', noCache: true }
+      }, {
         path: 'inbound',
         component: () => import('@/views/operation/GoodsInbound'),
         name: 'GoodsInbound',

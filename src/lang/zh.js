@@ -5,6 +5,7 @@ export default {
     container: '售货柜',
     containers: '售货柜管理',
     operation: '运营',
+    containerGoods: '售货柜商品管理',
     goodsInbound: '商品入库管理',
     goodsOutbound: '商品出库管理',
     introduction: '简述',

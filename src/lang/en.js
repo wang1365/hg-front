@@ -5,6 +5,7 @@ export default {
     container: 'Container',
     containers: 'Container System',
     operation: 'Operation',
+    containerGoods: 'Container Goods',
     goodsInbound: 'Goods Inbound',
     goodsOutbound: 'Goods Outbound',
     introduction: 'Introduction',
