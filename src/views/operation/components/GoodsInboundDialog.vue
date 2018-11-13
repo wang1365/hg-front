@@ -33,7 +33,7 @@
     </el-table>
     <div slot="footer" class="dialog-footer">
       <el-button @click="visible=false">取消</el-button>
-      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="applyStockIn">确定</el-button>
+      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="applyGoodsInbound">确定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -102,7 +102,13 @@ export default {
     removeGoods(index) {
       this.items.splice(index, 1)
     },
-    applyStockIn() {
+    applyGoodsInbound() {
+      // validate
+      const validItems = this.items.filter(item => item.id !== -1)
+      if (validItems.length === 0) {
+        this.$message({ message: '请至少选择一种商品!', type: 'error' })
+        return false
+      }
       inbound({
         areaId: this.area.id,
         containerId: this.machine.id,
