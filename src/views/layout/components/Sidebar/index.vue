@@ -9,7 +9,8 @@
       background-color="#304156"
       text-color="#bfcbd9"
       active-text-color="#ffff99"
-    >
+      unique-opened="true"
+    ><!-- 只保持一个子菜单的展开 -->
       <sidebar-item v-for="route in permission_routers" :key="route.name" :item="route" :base-path="route.path"/>
     </el-menu>
   </el-scrollbar>
