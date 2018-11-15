@@ -65,7 +65,9 @@
       <el-table :data="items" stripe highlight-current-row>
         <el-table-column prop="id" align="center" label="ID" />
         <el-table-column prop="goodsName" align="center" label="商品名称" />
-        <el-table-column prop="status" align="center" label="标签状态" />
+        <el-table-column prop="status" align="center" label="标签状态">
+          <template slot-scope="scope">{{ lablelStatus.get(scope.row.status) }}</template>
+        </el-table-column>
         <el-table-column prop="labelCode" align="center" label="电子标签" />
         <el-table-column prop="barCode" align="center" label="条形码" />
         <el-table-column prop="brandName" align="center" lchuangiabel="品牌" />
@@ -96,6 +98,7 @@ export default {
       brandOptionsVisible: false,
       items: [],
       formVisible: false,
+      lablelStatus: new Map([[0, '待入库'], [1, '已入库'], [2, '已出库'], [3, '已售']]),
       form: {
         barCode: null,
         labelCode: null,
