@@ -3,34 +3,39 @@
     <el-dialog :visible.sync="formVisible" title="新增">
       <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
         <el-row :span="24">
-          <el-col :span="10">
+          <el-col :span="12">
             <el-form-item label="条形码" prop="barCode">
               <el-input v-model="form.barCode">
                 <el-button slot="append" icon="el-icon-search" @click="onSearchBarCode"/>
               </el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :span="24">
-          <el-col :span="10">
+          <el-col :span="12">
             <el-form-item label="商品名称" prop="name" >
-              <el-input v-model="goods.name" readonly placeholder="根据条形码自动生成" />
+              <el-input v-model="form.name" readonly placeholder="根据条形码自动生成" />
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+        </el-row>
+        <el-row :span="24">
+          <el-col :span="12">
             <el-form-item label="商品分类" prop="catName" >
-              <el-input v-model="goods.catName" readonly placeholder="根据条形码自动生成"/>
+              <el-input v-model="form.catName" readonly placeholder="根据条形码自动生成"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="生产日期" prop="productDate">
+              <el-date-picker v-model="form.productDate" type="date" value-format="yyy-MM-dd" controls-position="right"/>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row :span="24">
-          <el-col :span="10">
+          <el-col :span="12">
             <el-form-item label="商品品牌" prop="brandName">
-              <el-input v-model="goods.brandName" readonly placeholder="根据条形码自动生成"/>
+              <el-input v-model="form.brandName" readonly placeholder="根据条形码自动生成"/>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :span="12">
             <el-form-item label="保质天数" prop="expireDays">
               <el-input-number v-model="form.expireDays" controls-position="right"/>
             </el-form-item>
@@ -38,9 +43,9 @@
         </el-row>
 
         <el-row :span="24">
-          <el-col :span="10">
+          <el-col :span="18">
             <el-form-item label="电子标签" prop="labelCode">
-              <el-input v-model="form.labelCode" type="textarea"/>
+              <el-input :rows="3" v-model="form.labelCode" type="textarea" placeholder="通过RFID扫描仪输入，单个或多个以逗号或换行隔开"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -94,10 +99,8 @@ export default {
       form: {
         barCode: null,
         labelCode: null,
-        productDate: null,
-        expireDays: null
-      },
-      goods: {
+        productDate: new Date(),
+        expireDays: null,
         name: null,
         catName: null,
         brandName: null
@@ -191,7 +194,9 @@ export default {
       }
       api.getGoodsByBarCode(this.form.barCode).then(res => {
         if (res.data.data) {
-          this.goods = res.data.data
+          this.form.name = res.data.data.name
+          this.form.catName = res.data.data.catName
+          this.form.brandName = res.data.data.brandName
         } else {
           this.$message({ type: 'warning', message: `找不到条形码"${this.form.barCode}"对应的商品` })
         }
