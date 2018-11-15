@@ -24,7 +24,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="生产日期" prop="productDate">
-              <el-date-picker v-model="form.productDate" type="date" value-format="yyy-MM-dd" controls-position="right"/>
+              <el-date-picker v-model="form.productDate" type="date" value-format="yyyy-MM-dd" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -99,7 +99,7 @@ export default {
       form: {
         barCode: null,
         labelCode: null,
-        productDate: new Date(),
+        productDate: (new Date()).toISOString().split('T')[0],
         expireDays: null,
         name: null,
         catName: null,
