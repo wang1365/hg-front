@@ -84,6 +84,12 @@ export default {
     promotion: '促销活动',
     user: '用户',
     userList: '用户列表',
+    report: '报表',
+    salesReport: '销售统计',
+    areaSalesReport: '片区销售排行',
+    containerSalesReport: '点位销售排行',
+    goodsSalesReport: '商品销售排行',
+    goodsTypeSalesReport: '商品分类销售排行',
     order: '订单',
     orderList: '订单列表',
     orderItem: '订单详情'
