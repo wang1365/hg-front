@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getGoodsInboundDetail } from '@/api/goods'
+import { getGoodsInboundDetail, getGoodsOutboundDetail } from '@/api/goods'
 
 export default {
   name: 'GoodsBoundDetailDetail',
@@ -32,13 +32,10 @@ export default {
       const that = this
       this.mode = mode
       this.visible = true
-      if (this.mode === 'inbound') {
-        getGoodsInboundDetail({ id: id }).then(response => {
-          that.items = response.data.data
-        })
-      } else if (this.mode === 'outbound') {
-        console.log('todo')
-      }
+      const restGoodsDetail = this.mode === 'inbound' ? getGoodsInboundDetail : getGoodsOutboundDetail
+      restGoodsDetail({ id: id }).then(response => {
+        that.items = response.data.data
+      })
     }
   }
 }

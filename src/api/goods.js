@@ -180,3 +180,11 @@ export function getGoodsOutboundList(params) {
     params: params
   })
 }
+
+export function getGoodsOutboundDetail(params) {
+  return request({
+    url: '/web/goods/getGoodsOutboundDetail',
+    method: 'get',
+    params: params
+  })
+}
