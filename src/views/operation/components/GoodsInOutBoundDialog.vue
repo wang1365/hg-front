@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visible" title="申请入库" left>
+  <el-dialog :visible.sync="visible" :title="title" left>
     <el-form ref="form" :rules="rules" align="left" label-width="120px">
       <el-form-item label="目标片区：" prop="areaName">
         <el-col :span="15">
@@ -33,13 +33,13 @@
     </el-table>
     <div slot="footer" class="dialog-footer">
       <el-button @click="visible=false">取消</el-button>
-      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="applyGoodsInbound">确定</el-button>
+      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="applyGoodsInOutBound">确定</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { getGoodsList, inbound } from '@/api/goods'
+import { getGoodsList, inbound, outbound } from '@/api/goods'
 import AreaOption from '@/views/components/AreaOption'
 import MachineOption from '@/views/components/MachineOption'
 
@@ -56,6 +56,8 @@ export default {
       containerDisabled: true,
       area: {},
       machine: {},
+      mode: null,
+      title: null,
       rules: {
         areaName: [{ required: true, message: '请选择片区!', trigger: 'blur' }],
         vmName: [{ required: true, message: '请选择售货柜!', trigger: 'blur' }]
@@ -65,7 +67,9 @@ export default {
   },
   mounted() {},
   methods: {
-    show() {
+    show(mode) {
+      this.mode = mode
+      this.title = (mode === 'outbound') ? '申请出库' : '申请入库'
       this.visible = true
     },
     handleAreaChange(area) {
@@ -102,14 +106,15 @@ export default {
     removeGoods(index) {
       this.items.splice(index, 1)
     },
-    applyGoodsInbound() {
+    applyGoodsInOutBound() {
       // validate
       const validItems = this.items.filter(item => item.id !== -1)
       if (validItems.length === 0) {
         this.$message({ message: '请至少选择一种商品!', type: 'error' })
         return false
       }
-      inbound({
+      const inOutBound = this.mode === 'inbound' ? inbound : outbound
+      inOutBound({
         areaId: this.area.id,
         containerId: this.machine.id,
         containerCode: this.machine.code,
@@ -118,7 +123,7 @@ export default {
           return map
         }, {})
       }).then((response) => {
-        this.$message({ message: `商品入库申请成功`, type: 'success' })
+        this.$message({ message: this.mode === 'inbound' ? `商品入库申请成功` : '商品出库申请成功', type: 'success' })
         this.visible = false
         this.$emit('change')
       })

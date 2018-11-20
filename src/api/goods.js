@@ -164,3 +164,19 @@ export function getGoodsInboundDetail(params) {
     params: params
   })
 }
+
+export function outbound(data) {
+  return request({
+    url: '/web/goods/outbound',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getGoodsOutboundList(params) {
+  return request({
+    url: '/web/goods/getGoodsOutboundList',
+    method: 'get',
+    params: params
+  })
+}

@@ -24,7 +24,7 @@
         </el-table-column>
       </el-table>
     </el-row>
-    <goods-in-out-bound-dialog ref="inboundDialog" @change="applyInbound" />
+    <goods-in-out-bound-dialog ref="inboundDialog" @change="applyGoodsOutbound" />
     <goods-bound-detail-dialog ref="inboundDetail" />
   </div>
 </template>
@@ -54,9 +54,9 @@ export default {
       })
     },
     openInboundDialog() {
-      this.$refs['inboundDialog'].show()
+      this.$refs['inboundDialog'].show('inbound')
     },
-    applyInbound() {
+    applyGoodsOutbound() {
       this.refresh()
     },
     showInboundDetail(row) {
