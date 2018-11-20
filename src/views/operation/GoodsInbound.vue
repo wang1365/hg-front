@@ -8,10 +8,14 @@
         <el-table-column prop="id" label="ID" />
         <el-table-column prop="areaName" label="片区" />
         <el-table-column prop="containerCode" label="售货柜编码" />
-        <el-table-column prop="vmName" label="点位名称" />
+        <el-table-column prop="containerName" label="点位名称" />
         <el-table-column label="盘存状态" />
-        <el-table-column label="审核状态" value="已审核" />
-        <el-table-column label="智能方案"><template>RFID</template></el-table-column>
+        <el-table-column label="审核状态">
+          <template slot-scope="scope"><span>已审核</span></template>
+        </el-table-column>
+        <el-table-column label="智能方案">
+          <template slot-scope="scope"><span>RFID</span></template>
+        </el-table-column>
         <el-table-column prop="species" label="计划/实际种类" />
         <el-table-column prop="amount" label="计划/实际总数" />
         <el-table-column label="计划/实际金额" />
