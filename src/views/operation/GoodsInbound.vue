@@ -24,20 +24,20 @@
         </el-table-column>
       </el-table>
     </el-row>
-    <goods-inbound-dialog ref="inboundDialog" @change="applyInbound" />
+    <goods-in-out-bound-dialog ref="inboundDialog" @change="applyInbound" />
     <goods-bound-detail-dialog ref="inboundDetail" />
   </div>
 </template>
 
 <script>
 import { getGoodsInboundList } from '@/api/goods'
-import GoodsInboundDialog from './components/GoodsInboundDialog'
+import GoodsInOutBoundDialog from './components/GoodsInOutBoundDialog'
 import GoodsBoundDetailDialog from './components/GoodsBoundDetailDialog'
 
 export default {
   name: 'GoodsInbound',
   components: {
-    GoodsInboundDialog, GoodsBoundDetailDialog
+    GoodsInOutBoundDialog, GoodsBoundDetailDialog
   },
   data() {
     return {

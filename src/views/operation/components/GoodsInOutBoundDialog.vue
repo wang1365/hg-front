@@ -44,7 +44,7 @@ import AreaOption from '@/views/components/AreaOption'
 import MachineOption from '@/views/components/MachineOption'
 
 export default {
-  name: 'StockInDialog',
+  name: 'GoodsInOutBoundDialog',
   components: {
     AreaOption, MachineOption
   },
