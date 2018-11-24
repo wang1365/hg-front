@@ -5,8 +5,8 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" />
         <el-table-column prop="areaName" label="片区" />
-        <el-table-column prop="vmCode" label="售货柜编码" />
-        <el-table-column prop="vmName" label="点位名称" />
+        <el-table-column prop="containerCode" label="售货柜编码" />
+        <el-table-column prop="containerName" label="点位名称" />
         <el-table-column label="商品名称" />
         <el-table-column label="电子标签" />
         <el-table-column label="商品条码" />

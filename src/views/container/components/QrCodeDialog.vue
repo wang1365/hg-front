@@ -23,21 +23,21 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    show(machineCode) {
+    show(containerCode) {
       this.visible = true
       this.$nextTick(() => {
         if (this.qrCode === null) {
           this.qrCode = new QRCode('qrcode', {
             width: 180,
             height: 180,
-            text: machineCode,
+            text: containerCode,
             // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
             background: '#f0f',
             foreground: '#ff0'
           })
         } else {
           this.qrCode.clear()
-          this.qrCode.makeCode(machineCode)
+          this.qrCode.makeCode(containerCode)
         }
       })
     }

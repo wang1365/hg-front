@@ -6,9 +6,9 @@
           <area-option :area="area" :disabled="false" @change="handleAreaChange" />
         </el-col>
       </el-form-item>
-      <el-form-item label="目标售货柜：" prop="vmName">
+      <el-form-item label="目标售货柜：" prop="containerName">
         <el-col :span="15">
-          <machine-option :area="area" :container="machine" :disabled="containerDisabled" @change="changeContainer" />
+          <container-option :area="area" :container="container" :disabled="containerDisabled" @change="changeContainer" />
         </el-col>
       </el-form-item>
     </el-form>
@@ -41,12 +41,12 @@
 <script>
 import { getGoodsList, inbound, outbound } from '@/api/goods'
 import AreaOption from '@/views/components/AreaOption'
-import MachineOption from '@/views/components/MachineOption'
+import ContainerOption from '@/views/components/ContainerOption'
 
 export default {
   name: 'GoodsInOutBoundDialog',
   components: {
-    AreaOption, MachineOption
+    AreaOption, ContainerOption
   },
   data() {
     return {
@@ -55,12 +55,12 @@ export default {
       btnDisabled: true,
       containerDisabled: true,
       area: {},
-      machine: {},
+      container: {},
       mode: null,
       title: null,
       rules: {
         areaName: [{ required: true, message: '请选择片区!', trigger: 'blur' }],
-        vmName: [{ required: true, message: '请选择售货柜!', trigger: 'blur' }]
+        containerName: [{ required: true, message: '请选择售货柜!', trigger: 'blur' }]
       },
       goods: []
     }
@@ -76,8 +76,8 @@ export default {
       this.area = area
       this.containerDisabled = false
     },
-    changeContainer(machine) {
-      this.machine = machine
+    changeContainer(container) {
+      this.container = container
       this.btnDisabled = false
       this.items.push(this.createNewGoods())
       getGoodsList().then(response => {
@@ -116,8 +116,8 @@ export default {
       const inOutBound = this.mode === 'inbound' ? inbound : outbound
       inOutBound({
         areaId: this.area.id,
-        containerId: this.machine.id,
-        containerCode: this.machine.code,
+        containerId: this.container.id,
+        containerCode: this.container.code,
         goods: this.items.reduce((map, obj) => {
           map[obj.id] = obj.number
           return map
