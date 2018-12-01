@@ -206,27 +206,16 @@ export const asyncRouterMap = [
         component: () => import('@/views/order/OrderList'),
         name: 'Order',
         meta: { title: 'orderList', noCache: true }
-      },
-      {
-        path: 'item',
-        component: () => import('@/views/order/OrderItem'),
-        name: 'OrderItem',
-        meta: { title: 'orderItem', noCache: true }
       }
+      // {
+      //   path: 'item',
+      //   component: () => import('@/views/order/OrderItem'),
+      //   name: 'OrderItem',
+      //   meta: { title: 'orderItem', noCache: true }
+      // }
     ]
   },
-  {
-    path: '/fake',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/fake/Fake'),
-        name: 'Fake',
-        meta: { title: 'fake', noCache: true }
-      }
-    ]
-  },
+
   {
     path: '/report',
     component: Layout,
@@ -299,6 +288,18 @@ export const asyncRouterMap = [
         component: () => import('@/views/company/index'),
         name: 'Company',
         meta: { title: 'company', icon: 'tab', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/fake',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/fake/Fake'),
+        name: 'Fake',
+        meta: { title: '...', noCache: true }
       }
     ]
   },
