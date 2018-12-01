@@ -112,25 +112,25 @@ export const asyncRouterMap = [
         path: 'category',
         component: () => import('@/views/goods/category/GoodsCategory'),
         name: 'GoodsCategory',
-        meta: { title: 'goodsCategory', icon: 'example', noCache: true }
+        meta: { title: 'goodsCategory', noCache: true }
       },
       {
         path: 'brand',
         component: () => import('@/views/goods/brand/GoodsBrand'),
         name: 'GoodsBrand',
-        meta: { title: 'goodsBrand', icon: 'example', noCache: true }
+        meta: { title: 'goodsBrand', noCache: true }
       },
       {
         path: 'info',
         component: () => import('@/views/goods/GoodsInfo'),
         name: 'GoodsInfo',
-        meta: { title: 'goodsInfo', icon: 'example', noCache: true }
+        meta: { title: 'goodsInfo', noCache: true }
       },
       {
         path: 'label',
         component: () => import('@/views/goods/GoodsLabel'),
         name: 'GoodsLabel',
-        meta: { title: 'goodsLabel', icon: 'example', noCache: true }
+        meta: { title: 'goodsLabel', noCache: true }
       }
     ]
   },
@@ -171,7 +171,7 @@ export const asyncRouterMap = [
         path: 'promotion',
         component: () => import('@/views/market/Promotion'),
         name: 'Promotion',
-        meta: { title: 'promotion', icon: 'example', noCache: true }
+        meta: { title: 'promotion', noCache: true }
       }
     ]
   },
@@ -205,13 +205,13 @@ export const asyncRouterMap = [
         path: 'list',
         component: () => import('@/views/order/OrderList'),
         name: 'Order',
-        meta: { title: 'orderList', icon: 'el-icon-goods', noCache: true }
+        meta: { title: 'orderList', noCache: true }
       },
       {
         path: 'item',
         component: () => import('@/views/order/OrderItem'),
         name: 'OrderItem',
-        meta: { title: 'orderItem', icon: 'el-icon-goods', noCache: true }
+        meta: { title: 'orderItem', noCache: true }
       }
     ]
   },
