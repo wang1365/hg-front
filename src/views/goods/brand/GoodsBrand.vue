@@ -5,8 +5,8 @@
         <el-form-item label="品牌名称" prop="name">
           <el-input v-model="form.name" placeholder="填写品牌名称"/>
         </el-form-item>
-        <el-form-item label="描述" prop="imageUrl">
-          <el-input v-model="form.desc" type="textarea" placeholder="填写描述"/>
+        <el-form-item label="描述" prop="comment">
+          <el-input v-model="form.comment" type="textarea" placeholder="填写描述"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -23,7 +23,7 @@
       <el-table :data="items" stripe highlight-current-row>
         <el-table-column prop="id" align="center" label="ID" />
         <el-table-column prop="name" align="center" label="品牌名称" />
-        <el-table-column prop="desc" align="center" label="描述" />
+        <el-table-column prop="comment" align="center" label="描述" />
         <el-table-column align="center" label="操作" width="200px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
@@ -48,7 +48,7 @@ export default {
       formVisible: false,
       form: {
         name: null,
-        desc: null
+        comment: null
       },
       rules: {
         name: [

@@ -105,7 +105,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'goods',
-      icon: 'el-icon-menu'
+      icon: 'el-icon-date'
     },
     children: [
       {
@@ -181,7 +181,7 @@ export const asyncRouterMap = [
     alwaysShow: true,
     meta: {
       title: 'user',
-      icon: 'el-icon-menu'
+      icon: 'el-icon-news'
     },
     children: [
       {
@@ -198,7 +198,7 @@ export const asyncRouterMap = [
     alwaysShow: true,
     meta: {
       title: 'order',
-      icon: 'el-icon-menu'
+      icon: 'el-icon-goods'
     },
     children: [
       {

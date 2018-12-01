@@ -10,7 +10,7 @@
         </el-table-column>
         <el-table-column prop="id" center label="ID" />
         <el-table-column prop="name" center label="分类名称" />
-        <el-table-column prop="desc" center label="描述" />
+        <el-table-column prop="comment" center label="描述" />
       </el-table>
       <div slot="footer" class="dialog-footer">
         <el-button type="success" size="small" @click="onSubmit">确 定</el-button>
