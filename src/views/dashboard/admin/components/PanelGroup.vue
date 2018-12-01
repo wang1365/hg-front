@@ -6,19 +6,8 @@
           <svg-icon icon-class="peoples" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">New Visits</div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
-        <div class="card-panel-icon-wrapper icon-message">
-          <svg-icon icon-class="message" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">Messages</div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num"/>
+          <div class="card-panel-text">用户数</div>
+          <count-to :start-val="0" :end-val="fake.userCount" :duration="1000" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -28,8 +17,8 @@
           <svg-icon icon-class="money" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">Purchases</div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num"/>
+          <div class="card-panel-text">销售金额</div>
+          <count-to :start-val="0" :end-val="fake.totalSaleAmount" :duration="1000" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -39,8 +28,19 @@
           <svg-icon icon-class="shoppingCard" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">Shoppings</div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num"/>
+          <div class="card-panel-text">销售件数</div>
+          <count-to :start-val="0" :end-val="13600" :duration="600" class="card-panel-num"/>
+        </div>
+      </div>
+    </el-col>
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <div class="card-panel" @click="handleSetLineChartData('messages')">
+        <div class="card-panel-icon-wrapper icon-message">
+          <svg-icon icon-class="message" class-name="card-panel-icon" />
+        </div>
+        <div class="card-panel-description">
+          <div class="card-panel-text">销售重量(kg)</div>
+          <count-to :start-val="0" :end-val="fake.totalWeight" :duration="1000" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -49,12 +49,32 @@
 
 <script>
 import CountTo from 'vue-count-to'
+import * as api from '@/api/fake'
 
 export default {
   components: {
     CountTo
   },
+  data() {
+    return {
+      fake: {
+        totalSaleAmount: null,
+        userCount: null,
+        totalWeight: null
+      }
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      setInterval(this.refreshFake, 3000)
+    })
+  },
   methods: {
+    refreshFake() {
+      api.getFake().then(res => {
+        this.fake = res.data.data
+      })
+    },
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
     }
