@@ -18,7 +18,7 @@ export function updateOrder(data) {
 
 export function getAllOrder(params) {
   return request({
-    url: '/web/order/getOrderList',
+    url: '/web/order/getOrderDTOList',
     method: 'get',
     params: params
   })

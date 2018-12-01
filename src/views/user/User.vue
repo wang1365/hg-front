@@ -14,9 +14,7 @@
           <template slot-scope="scope">{{ scope.row.creditAudited ? '是' : '否' }}</template>
         </el-table-column>
         <el-table-column prop="creditLevel" align="center" label="不良信用等级" />
-        <el-table-column align="center" label="注册时间" min-width="110px">
-          <template slot-scope="scope">{{ scope.row.registerTime | formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="registerTime" align="center" label="注册时间" min-width="110px"/>
         <el-table-column align="center" label="操作" width="200px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel(scope.row)">详情</el-button>
