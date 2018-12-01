@@ -216,6 +216,18 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/fake',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/fake/Fake'),
+        name: 'Fake',
+        meta: { title: 'fake', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/report',
     component: Layout,
     alwaysShow: true,
