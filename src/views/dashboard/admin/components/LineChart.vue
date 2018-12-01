@@ -73,10 +73,14 @@ export default {
     this.chart = null
   },
   methods: {
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions({ items, compareItems } = {}) {
+      const xs = []
+      for (let i = 1; i < 32; i++) {
+        xs.push('' + i)
+      }
       this.chart.setOption({
         xAxis: {
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: xs,
           boundaryGap: false,
           axisTick: {
             show: false
@@ -102,10 +106,10 @@ export default {
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['上月', '当月']
         },
         series: [{
-          name: 'expected', itemStyle: {
+          name: '上月', itemStyle: {
             normal: {
               color: '#FF005A',
               lineStyle: {
@@ -116,12 +120,12 @@ export default {
           },
           smooth: true,
           type: 'line',
-          data: expectedData,
+          data: items,
           animationDuration: 2800,
           animationEasing: 'cubicInOut'
         },
         {
-          name: 'actual',
+          name: '当月',
           smooth: true,
           type: 'line',
           itemStyle: {
@@ -136,7 +140,7 @@ export default {
               }
             }
           },
-          data: actualData,
+          data: compareItems,
           animationDuration: 2800,
           animationEasing: 'quadraticOut'
         }]

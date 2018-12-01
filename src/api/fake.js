@@ -8,6 +8,14 @@ export function getFake(params) {
   })
 }
 
+export function getFakeDailyReport(params) {
+  return request({
+    url: '/web/fake/getFakeDailyReport',
+    method: 'get',
+    params: params
+  })
+}
+
 export function updateFake(data) {
   return request({
     url: '/web/fake/updateFake',
