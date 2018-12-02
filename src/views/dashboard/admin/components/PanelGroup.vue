@@ -29,7 +29,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">销售件数</div>
-          <count-to :start-val="0" :end-val="fake.saleCount" :duration="600" class="card-panel-num"/>
+          <count-to :start-val="0" :end-val="fake.totalSaleCount" :duration="600" class="card-panel-num"/>
         </div>
       </div>
     </el-col>
@@ -59,6 +59,7 @@ export default {
     return {
       fake: {
         totalSaleAmount: null,
+        totalSaleCount: null,
         userCount: null,
         totalWeight: null
       }
