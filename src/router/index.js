@@ -192,71 +192,71 @@ export const asyncRouterMap = [
       }
     ]
   },
-  {
-    path: '/order',
-    component: Layout,
-    alwaysShow: true,
-    meta: {
-      title: 'order',
-      icon: 'el-icon-goods'
-    },
-    children: [
-      {
-        path: 'list',
-        component: () => import('@/views/order/OrderList'),
-        name: 'Order',
-        meta: { title: 'orderList', noCache: true }
-      }
-      // {
-      //   path: 'item',
-      //   component: () => import('@/views/order/OrderItem'),
-      //   name: 'OrderItem',
-      //   meta: { title: 'orderItem', noCache: true }
-      // }
-    ]
-  },
-
-  {
-    path: '/report',
-    component: Layout,
-    alwaysShow: true,
-    meta: {
-      title: 'report',
-      icon: 'el-icon-menu'
-    },
-    children: [
-      {
-        path: 'sales',
-        component: () => import('@/views/report/SalesReport'),
-        name: 'SalesReport',
-        meta: { title: 'salesReport', noCache: true }
-      },
-      {
-        path: 'areas',
-        component: () => import('@/views/report/AreaSalesReport'),
-        name: 'AreaSalesReport',
-        meta: { title: 'areaSalesReport', noCache: true }
-      },
-      {
-        path: 'containers',
-        component: () => import('@/views/report/ContainerSalesReport'),
-        name: 'ContainerSalesReport',
-        meta: { title: 'containerSalesReport', noCache: true }
-      },
-      {
-        path: 'types',
-        component: () => import('@/views/report/GoodsTypeSalesReport'),
-        name: 'GoodsTypeSalesReport',
-        meta: { title: 'goodsTypeSalesReport', noCache: true }
-      },
-      {
-        path: 'goods',
-        component: () => import('@/views/report/GoodsSalesReport'),
-        name: 'GoodsSalesReport',
-        meta: { title: 'goodsSalesReport', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/order',
+  //   component: Layout,
+  //   alwaysShow: true,
+  //   meta: {
+  //     title: 'order',
+  //     icon: 'el-icon-goods'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'list',
+  //       component: () => import('@/views/order/OrderList'),
+  //       name: 'Order',
+  //       meta: { title: 'orderList', noCache: true }
+  //     }
+  //     // {
+  //     //   path: 'item',
+  //     //   component: () => import('@/views/order/OrderItem'),
+  //     //   name: 'OrderItem',
+  //     //   meta: { title: 'orderItem', noCache: true }
+  //     // }
+  //   ]
+  // },
+  //
+  // {
+  //   path: '/report',
+  //   component: Layout,
+  //   alwaysShow: true,
+  //   meta: {
+  //     title: 'report',
+  //     icon: 'el-icon-menu'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'sales',
+  //       component: () => import('@/views/report/SalesReport'),
+  //       name: 'SalesReport',
+  //       meta: { title: 'salesReport', noCache: true }
+  //     },
+  //     {
+  //       path: 'areas',
+  //       component: () => import('@/views/report/AreaSalesReport'),
+  //       name: 'AreaSalesReport',
+  //       meta: { title: 'areaSalesReport', noCache: true }
+  //     },
+  //     {
+  //       path: 'containers',
+  //       component: () => import('@/views/report/ContainerSalesReport'),
+  //       name: 'ContainerSalesReport',
+  //       meta: { title: 'containerSalesReport', noCache: true }
+  //     },
+  //     {
+  //       path: 'types',
+  //       component: () => import('@/views/report/GoodsTypeSalesReport'),
+  //       name: 'GoodsTypeSalesReport',
+  //       meta: { title: 'goodsTypeSalesReport', noCache: true }
+  //     },
+  //     {
+  //       path: 'goods',
+  //       component: () => import('@/views/report/GoodsSalesReport'),
+  //       name: 'GoodsSalesReport',
+  //       meta: { title: 'goodsSalesReport', noCache: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/image',
     component: Layout,
