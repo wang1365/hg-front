@@ -96,7 +96,7 @@
         <el-table-column align="center" label="操作" min-width="150px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModel('modify', scope.row)">修改</el-button>
-            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="warning" disabled @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
