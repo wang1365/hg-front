@@ -63,3 +63,12 @@ export function updateFakeDay(data) {
     data: data
   })
 }
+
+export function deleteFakeDay(id) {
+  return request({
+    url: '/web/fake/deleteFakeDay',
+    method: 'post',
+    params: { id }
+  })
+}
+

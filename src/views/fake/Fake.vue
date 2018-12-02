@@ -188,6 +188,12 @@ export default {
       this.showUpdate = true
       this.fakeDay = fakeDay
     },
+    onDeleteBtnClick(id) {
+      api.deleteFakeDay(id).then(res => {
+        this.$message({ type: 'success', message: '删除成功!' })
+        this.refreshList()
+      })
+    },
     onAdd() {
       api.addFakeDay(this.fakeDay).then(res => {
         this.$message({ type: 'success', message: '更新成功!' })
