@@ -33,7 +33,7 @@ export default {
   },
   watch: {
     orderId() {
-      this.h5Url = 'http://hg.tiaocaishishi.com:9527/#/goods/' + this.orderId
+      this.h5Url = 'http://hg.tiaocaishi.com:9527/#/goods/' + this.orderId
     }
   },
   mounted() {
