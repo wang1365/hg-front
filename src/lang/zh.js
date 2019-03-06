@@ -1,7 +1,7 @@
 export default {
   route: {
     dashboard: '2017年销售统计',
-    area: '片区',
+    area: '2018年销售统计',
     container: '售货柜',
     containers: '售货柜管理',
     operation: '运营',
